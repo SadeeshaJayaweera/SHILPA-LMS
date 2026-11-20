@@ -1,112 +1,92 @@
 <?php
 
-include './shilpaDatabase.php';
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+require_once __DIR__ . '/shilpaDatabase.php';
 
+use App\Models\Course;
 
 // .....................................................new courses display.....................................................
-
 function getLatestCourse() {
-
-    $conn = getDbConnect();
-
-     $sql = "SELECT C_ID, C_NAME, C_CARD_DESCRIPTION, C_DESCRIPTION, C_CARD_IMAGE, C_DONE_BY, C_LINK FROM course ORDER BY C_ADD_DATE DESC LIMIT 4";
-
-    $result = mysqli_query($conn, $sql);
-    while ($row = mysqli_fetch_assoc($result)) {
-        $id = $row['C_ID'];
-        $name = $row['C_NAME'];
-        $csd = $row['C_CARD_DESCRIPTION'];
-        $cd = $row['C_DESCRIPTION'];
-        $cci = $row['C_CARD_IMAGE'];
-        $cdb = $row['C_DONE_BY'];
-        $c1 = $row['C_LINK'];
+    $courses = Course::getLatest(4);
+    foreach ($courses as $c) {
+        $id = (int)$c->C_ID;
+        $name = htmlspecialchars((string)$c->C_NAME, ENT_QUOTES, 'UTF-8');
+        $csd = htmlspecialchars((string)$c->C_CARD_DESCRIPTION, ENT_QUOTES, 'UTF-8');
+        $cd = htmlspecialchars((string)$c->C_DESCRIPTION, ENT_QUOTES, 'UTF-8');
+        $cci = htmlspecialchars((string)$c->C_CARD_IMAGE, ENT_QUOTES, 'UTF-8');
+        $cdb = htmlspecialchars((string)$c->C_DONE_BY, ENT_QUOTES, 'UTF-8');
+        $c1 = htmlspecialchars((string)$c->C_LINK, ENT_QUOTES, 'UTF-8');
 
         echo '
-        <a class="ancor" href="coursepage.php?ID= ' . $id . ' &name= ' . $name . ' &description= ' . $cd . ' &doneby= ' . $cdb . ' &originalUrl= ' . $c1 . ' ">
+        <a class="ancor" href="coursepage.php?ID=' . $id . '&name=' . urlencode((string)$c->C_NAME) . '&description=' . urlencode((string)$c->C_DESCRIPTION) . '&doneby=' . urlencode((string)$c->C_DONE_BY) . '&originalUrl=' . urlencode((string)$c->C_LINK) . '">
             <div class="course-card">
-                <img src=" ' . $cci . ' " alt="" class="course-card-head">
-                    <div class="card-container">
-                        <div class="card-text">                                           
-                            <p class="ct1"> ' . $name . ' </p>
-                            <p class="ct2"> ' . $csd . ' </p>
-                            <p class="ct3"> Done By: ' . $cdb . '</p>
-                        </div>
+                <img src="' . $cci . '" alt="' . $name . '" class="course-card-head">
+                <div class="card-container">
+                    <div class="card-text">                                           
+                        <p class="ct1">' . $name . '</p>
+                        <p class="ct2">' . $csd . '</p>
+                        <p class="ct3">Done By: ' . $cdb . '</p>
                     </div>
+                </div>
             </div>
-        </a>
-        ';
+        </a>';
     }
-    $conn->close();
 }
 
 // ........................................................top courses.......................................................... 
 function getTopCourse() {
-
-    $conn = getDbConnect();
-
-    $sql = "SELECT C_ID, C_NAME, C_CARD_DESCRIPTION, C_DESCRIPTION, C_CARD_IMAGE, C_DONE_BY, C_LINK FROM course ORDER BY TOP_COURSE DESC LIMIT 4";
-
-    $result = mysqli_query($conn, $sql);
-    while ($row = mysqli_fetch_assoc($result)) {
-        $id = $row['C_ID'];
-        $name = $row['C_NAME'];
-        $csd = $row['C_CARD_DESCRIPTION'];
-        $cd = $row['C_DESCRIPTION'];
-        $cci = $row['C_CARD_IMAGE'];
-        $cdb = $row['C_DONE_BY'];
-        $c1 = $row['C_LINK'];
+    $courses = Course::getTopCourses(4);
+    foreach ($courses as $c) {
+        $id = (int)$c->C_ID;
+        $name = htmlspecialchars((string)$c->C_NAME, ENT_QUOTES, 'UTF-8');
+        $csd = htmlspecialchars((string)$c->C_CARD_DESCRIPTION, ENT_QUOTES, 'UTF-8');
+        $cd = htmlspecialchars((string)$c->C_DESCRIPTION, ENT_QUOTES, 'UTF-8');
+        $cci = htmlspecialchars((string)$c->C_CARD_IMAGE, ENT_QUOTES, 'UTF-8');
+        $cdb = htmlspecialchars((string)$c->C_DONE_BY, ENT_QUOTES, 'UTF-8');
+        $c1 = htmlspecialchars((string)$c->C_LINK, ENT_QUOTES, 'UTF-8');
 
         echo '
-        <a class="ancor" href="coursepage.php?ID= ' . $id . ' &name= ' . $name . ' &description= ' . $cd . ' &doneby= ' . $cdb . ' &originalUrl= ' . $c1 . ' ">
+        <a class="ancor" href="coursepage.php?ID=' . $id . '&name=' . urlencode((string)$c->C_NAME) . '&description=' . urlencode((string)$c->C_DESCRIPTION) . '&doneby=' . urlencode((string)$c->C_DONE_BY) . '&originalUrl=' . urlencode((string)$c->C_LINK) . '">
             <div class="course-card">
-                <img src=" ' . $cci . ' " alt="" class="course-card-head">
-                    <div class="card-container">
-                        <div class="card-text">                                           
-                            <p class="ct1"> ' . $name . ' </p>
-                            <p class="ct2"> ' . $csd . ' </p>
-                            <p class="ct3"> Done By: ' . $cdb . ' </p>
-                        </div>
+                <img src="' . $cci . '" alt="' . $name . '" class="course-card-head">
+                <div class="card-container">
+                    <div class="card-text">                                           
+                        <p class="ct1">' . $name . '</p>
+                        <p class="ct2">' . $csd . '</p>
+                        <p class="ct3">Done By: ' . $cdb . '</p>
                     </div>
+                </div>
             </div>
-        </a>
-        ';
+        </a>';
     }
-    $conn->close();
 }
 
 // ....................................................all courses display.......................................................
 function getallCoruse() {
-
-    $conn = getDbConnect();
-
-    $sql = "SELECT C_ID, C_NAME, C_CARD_DESCRIPTION, C_DESCRIPTION, C_CARD_IMAGE, C_DONE_BY, C_LINK FROM course ORDER BY C_ID";
-    
-    $result = mysqli_query($conn, $sql);
-    while ($row = mysqli_fetch_assoc($result)) {
-        $id = $row['C_ID'];
-        $name = $row['C_NAME'];
-        $csd = $row['C_CARD_DESCRIPTION'];
-        $cd = $row['C_DESCRIPTION'];
-        $cci = $row['C_CARD_IMAGE'];
-        $cdb = $row['C_DONE_BY'];
-        $c1 = $row['C_LINK'];
+    $courses = Course::all();
+    foreach ($courses as $c) {
+        $id = (int)$c->C_ID;
+        $name = htmlspecialchars((string)$c->C_NAME, ENT_QUOTES, 'UTF-8');
+        $csd = htmlspecialchars((string)$c->C_CARD_DESCRIPTION, ENT_QUOTES, 'UTF-8');
+        $cd = htmlspecialchars((string)$c->C_DESCRIPTION, ENT_QUOTES, 'UTF-8');
+        $cci = htmlspecialchars((string)$c->C_CARD_IMAGE, ENT_QUOTES, 'UTF-8');
+        $cdb = htmlspecialchars((string)$c->C_DONE_BY, ENT_QUOTES, 'UTF-8');
+        $c1 = htmlspecialchars((string)$c->C_LINK, ENT_QUOTES, 'UTF-8');
 
         echo '
-        <a class="ancor" href="coursepage.php?ID= ' . $id . ' &name= ' . $name . ' &description= ' . $cd . ' &doneby= ' . $cdb . ' &originalUrl= ' . $c1 . ' ">
+        <a class="ancor" href="coursepage.php?ID=' . $id . '&name=' . urlencode((string)$c->C_NAME) . '&description=' . urlencode((string)$c->C_DESCRIPTION) . '&doneby=' . urlencode((string)$c->C_DONE_BY) . '&originalUrl=' . urlencode((string)$c->C_LINK) . '">
             <div class="course-card">
-                <img src=" ' . $cci . ' " alt="" class="course-card-head">
-                    <div class="card-container">
-                        <div class="card-text">                                           
-                            <p class="ct1"> ' . $name . ' </p>
-                            <p class="ct2"> ' . $csd . ' </p>
-                            <p class="ct3"> Done By: ' . $cdb . ' </p>
-                        </div>
+                <img src="' . $cci . '" alt="' . $name . '" class="course-card-head">
+                <div class="card-container">
+                    <div class="card-text">                                           
+                        <p class="ct1">' . $name . '</p>
+                        <p class="ct2">' . $csd . '</p>
+                        <p class="ct3">Done By: ' . $cdb . '</p>
                     </div>
+                </div>
             </div>
-        </a>
-        ';
+        </a>';
     }
-    $conn->close();
 }
-
-?>

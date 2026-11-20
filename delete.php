@@ -1,28 +1,16 @@
 <?php
-include_once './shilpaDatabase.php';
-include_once './module/Course.php';
-
-/*
-include './BusinessLogic.php';
-    $courses = displaydata();  
-*/
+require_once __DIR__ . '/vendor/autoload.php';
+use App\Models\Course;
 
 if (isset($_GET['deleteID'])) {
-    $deleteID = $_GET['deleteID'];
-    
-}
-$conn = getDbConnect();
-
-    $sql = "DELETE FROM `course` WHERE C_ID = $deleteID";
-    
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        //echo 'Deleted successfully';
-        header('location:admin.php');
-    } else {
-        die("Deleted failed: " . mysqli_error($conn));
+    $deleteID = (int)$_GET['deleteID'];
+    if ($deleteID > 0) {
+        $course = Course::find($deleteID);
+        if ($course) {
+            $course->delete();
+        }
     }
-    
-    $conn->close();
-
+    header('Location: admin.php');
+    exit;
+}
 ?>

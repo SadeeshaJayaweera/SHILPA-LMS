@@ -1,44 +1,33 @@
-<!doctype html>
-
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+use App\Models\Course;
 
-include_once './shilpaDatabase.php';
+$id = isset($_GET['updateID']) ? (int)$_GET['updateID'] : 0;
+$course = $id > 0 ? Course::find($id) : null;
 
-$conn = getDbConnect();
+$name = $course ? (string)$course->C_NAME : '';
+$csd = $course ? (string)$course->C_CARD_DESCRIPTION : '';
+$cd = $course ? (string)$course->C_DESCRIPTION : '';
+$cci = $course ? (string)$course->C_CARD_IMAGE : '';
+$cdb = $course ? (string)$course->C_DONE_BY : '';
+$cl = $course ? (string)$course->C_LINK : '';
+$tc = $course ? (string)$course->TOP_COURSE : 'No';
 
-$id = $_GET['updateID'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update']) && $course) {
+    $course->C_NAME = trim((string)($_POST['name'] ?? ''));
+    $course->C_CARD_DESCRIPTION = trim((string)($_POST['csd'] ?? ''));
+    $course->C_DESCRIPTION = trim((string)($_POST['cd'] ?? ''));
+    $course->C_CARD_IMAGE = trim((string)($_POST['cci'] ?? ''));
+    $course->C_DONE_BY = trim((string)($_POST['db'] ?? ''));
+    $course->C_LINK = trim((string)($_POST['cl'] ?? ''));
+    $course->TOP_COURSE = trim((string)($_POST['tc'] ?? 'No'));
+    $course->save();
 
-$sql = "SELECT * FROM `course` WHERE `C_ID` = $id";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$name = $row['C_NAME'];
-$csd = $row['C_CARD_DESCRIPTION'];
-$cd = $row['C_DESCRIPTION'];
-$cci  = $row['C_CARD_IMAGE'];
-$cdb = $row['C_DONE_BY'];
-$cl = $row['C_LINK'];
-$tc = $row['TOP_COURSE'];
-
-if (isset($_POST['update'])) {
-    $name = $_POST['name'];
-    $csd = $_POST['csd'];
-    $cd = $_POST['cd'];
-    $cci = $_POST['cci'];
-    $db = $_POST['db'];
-    $cl = $_POST['cl'];
-    $tc = $_POST['tc'];
-
-    $sql = "UPDATE `course` SET `C_NAME`='$name',`C_CARD_DESCRIPTION`='$csd',`C_DESCRIPTION`='$cd',`C_CARD_IMAGE`='$cci',`C_DONE_BY`='$db',`C_LINK`='$cl', `TOP_COURSE`='$tc' WHERE C_ID=$id";
-
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        //echo "\nForm Updated successfully!";
-        header('location: admin.php'); // Redirect to a success page or appropriate location after update
-    } else {
-        die(mysqli_die($conn));
-    }
+    header('Location: admin.php');
+    exit;
 }
 ?>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -100,11 +89,6 @@ if (isset($_POST['update'])) {
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-
-        p.success-message {
-            color: green;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -115,50 +99,41 @@ if (isset($_POST['update'])) {
         </tr>
         <tr>
             <td>Course Name:</td>
-            <td><input type="text" id="name" name="name" size="50" autocomplete="off" value="<?php echo $name ?>"></td>
+            <td><input type="text" id="name" name="name" size="50" autocomplete="off" value="<?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>"></td>
         </tr>
         <tr>
             <td>Course Short Description:</td>
-            <td><textarea name="csd" rows="4" cols="60" autocomplete="off" ><?php echo $csd ?></textarea></td>
+            <td><textarea name="csd" rows="4" cols="60" autocomplete="off"><?php echo htmlspecialchars($csd, ENT_QUOTES, 'UTF-8'); ?></textarea></td>
         </tr>
         <tr>
             <td>Course Description:</td>
-            <td><textarea name="cd" rows="10" cols="60" autocomplete="off" ><?php echo $cd ?></textarea></td>
+            <td><textarea name="cd" rows="10" cols="60" autocomplete="off"><?php echo htmlspecialchars($cd, ENT_QUOTES, 'UTF-8'); ?></textarea></td>
         </tr>
         <tr>
             <td>Course Card Image:</td>
-            <td><input type="text" id="cci" name="cci" size="40" autocomplete="off" value="<?php echo $cci ?>"></td>
+            <td><input type="text" id="cci" name="cci" size="40" autocomplete="off" value="<?php echo htmlspecialchars($cci, ENT_QUOTES, 'UTF-8'); ?>"></td>
         </tr>
         <tr>
             <td>Course Done by:</td>
-            <td><input type="text" id="db" name="db" size="50" autocomplete="off" value="<?php echo $cdb ?>"></td>
+            <td><input type="text" id="db" name="db" size="50" autocomplete="off" value="<?php echo htmlspecialchars($cdb, ENT_QUOTES, 'UTF-8'); ?>"></td>
         </tr>
         <tr>
             <td>Course Link:</td>
-            <td><input type="text" id="cl" name="cl" size="50" autocomplete="off" value="<?php echo $cl ?>"></td>
+            <td><input type="text" id="cl" name="cl" size="50" autocomplete="off" value="<?php echo htmlspecialchars($cl, ENT_QUOTES, 'UTF-8'); ?>"></td>
         </tr>
         <tr>
-            <td>Top Course:</td> <td><input type="radio" name="tc" value="Yes">Yes <input type="radio"  name="tc" value="No">No </td>
+            <td>Top Course:</td>
+            <td>
+                <input type="radio" name="tc" value="Yes" <?php echo strcasecmp($tc, 'yes') === 0 ? 'checked' : ''; ?>>Yes
+                <input type="radio" name="tc" value="No" <?php echo strcasecmp($tc, 'no') === 0 ? 'checked' : ''; ?>>No
+            </td>
         </tr>
         <tr>
             <th colspan="2">
-                <input type="hidden" name="courseData" value="<?php echo $_GET['updateID']; ?>">
                 <input type="submit" id="update" name="update" value="Update">
             </th>
         </tr>
     </table>
 </form>
-<?php
-if (isset($_GET['success'])) {
-    $successMessage = urldecode($_GET['success']);
-    echo "<p style='color: green; text-align: center;'>{$successMessage}</p>";
-
-    echo "<script>
-            if (window.history.replaceState) {
-                window.history.replaceState(null, null, window.location.pathname);
-            }
-        </script>";
-}
-?>
 </body>
 </html>
