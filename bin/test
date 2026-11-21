@@ -30,6 +30,7 @@ $testClasses = [
     \Tests\Feature\SecureLearningResourcesTest::class,
     \Tests\Feature\LearningProgressAndCompletionTest::class,
     \Tests\Feature\AssignmentAndSubmissionManagementTest::class,
+    \Tests\Feature\QuizAndQuestionBankSystemTest::class,
 ];
 
 $totalTests = 0;

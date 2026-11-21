@@ -10,6 +10,7 @@ use App\Models\CourseResource;
 use App\Models\Enrollment;
 use App\Models\Lesson;
 use App\Models\LessonCompletion;
+use App\Models\Quiz;
 
 class CourseWorkspaceService {
     public static function getWorkspaceOverview(int $courseId, ?int $userId = null): array {
@@ -49,6 +50,7 @@ class CourseWorkspaceService {
             'enrollment' => $enrollment ? new Enrollment($enrollment) : null,
             'resources' => CourseResource::forCourse($courseId),
             'assignments' => Assignment::forCourse($courseId, true),
+            'quizzes' => Quiz::forCourse($courseId, true),
             'completedLessonIds' => ($userId !== null && $userId > 0) ? LessonCompletion::completedLessonIdsForCourse($userId, $courseId) : [],
         ];
     }

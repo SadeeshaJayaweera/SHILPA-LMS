@@ -13,6 +13,7 @@ use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
 use App\Controllers\ProfileController;
 use App\Controllers\ProgressTrackingController;
+use App\Controllers\QuizController;
 use App\Controllers\ResourceManagementController;
 use App\Controllers\StudentDashboardController;
 use App\Controllers\WorkspaceController;
@@ -110,6 +111,17 @@ return function (Router $router): void {
     $router->post('/faculty/courses/{id}/assignments', [AssignmentController::class, 'store']);
     $router->get('/courses/{courseId}/assignments/{id}', [AssignmentController::class, 'show']);
     $router->post('/courses/{courseId}/assignments/{id}/submit', [AssignmentController::class, 'submit']);
+
+    // Assessments, Quiz and Question Bank Routes
+    $router->get('/faculty/courses/{id}/quizzes', [QuizController::class, 'facultyIndex']);
+    $router->post('/faculty/courses/{id}/quizzes', [QuizController::class, 'store']);
+    $router->get('/faculty/courses/{courseId}/quizzes/{id}/builder', [QuizController::class, 'builder']);
+    $router->post('/faculty/courses/{courseId}/quizzes/{quizId}/questions', [QuizController::class, 'storeQuestion']);
+    $router->get('/courses/{courseId}/quizzes/{id}', [QuizController::class, 'show']);
+    $router->post('/courses/{courseId}/quizzes/{id}/start', [QuizController::class, 'start']);
+    $router->get('/courses/{courseId}/quizzes/{id}/take/{attemptId}', [QuizController::class, 'take']);
+    $router->post('/courses/{courseId}/quizzes/{id}/take/{attemptId}', [QuizController::class, 'submit']);
+    $router->get('/courses/{courseId}/quizzes/{id}/result/{attemptId}', [QuizController::class, 'result']);
 
     // Course Enrollment and Access Control Routes
     $router->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);
