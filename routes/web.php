@@ -21,6 +21,7 @@ use App\Controllers\ProfileController;
 use App\Controllers\ProgressTrackingController;
 use App\Controllers\QuizController;
 use App\Controllers\ResourceManagementController;
+use App\Controllers\SearchController;
 use App\Controllers\StudentDashboardController;
 use App\Controllers\WorkspaceController;
 use App\Core\Router;
@@ -190,4 +191,9 @@ return function (Router $router): void {
     $router->post('/courses/{id}/bookmark', [DiscoveryAndRecommendationController::class, 'toggleBookmark']);
     $router->get('/my-bookmarks', [DiscoveryAndRecommendationController::class, 'bookmarks']);
     $router->get('/api/courses/recommendations', [DiscoveryAndRecommendationController::class, 'apiRecommendations']);
+
+    // Advanced Search & Global Command Interface Routes
+    $router->get('/search', [SearchController::class, 'index']);
+    $router->get('/api/search', [SearchController::class, 'apiSearch']);
+    $router->get('/api/commands', [SearchController::class, 'commands']);
 };

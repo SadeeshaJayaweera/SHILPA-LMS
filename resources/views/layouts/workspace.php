@@ -128,7 +128,38 @@ $navSections = NavigationService::getNavigationForUser();
         </a>
     </nav>
 
+    <!-- Global Command Palette Modal (Cmd+K) -->
+    <div id="command-palette-modal" class="command-palette-modal" aria-hidden="true" role="dialog" aria-modal="true" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 9999; display: none; align-items: flex-start; justify-content: center; padding-top: 10vh;">
+        <div style="width: 100%; max-width: 620px; background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); overflow: hidden; display: flex; flex-direction: column; max-height: 75vh;">
+            <div style="display: flex; align-items: center; padding: 0.875rem 1.25rem; border-bottom: 1px solid var(--border-color); gap: 0.75rem;">
+                <?= component('icon', ['name' => 'search', 'size' => 18, 'color' => 'var(--text-muted)']) ?>
+                <input type="text" id="command-palette-input" placeholder="Type a command or search courses, lessons, tasks..." style="flex: 1; border: none; background: transparent; font-size: 1rem; color: var(--text-color); outline: none;" autocomplete="off" spellcheck="false">
+                <button type="button" id="command-palette-close" class="btn btn-ghost btn-sm btn-icon" aria-label="Close search" style="color: var(--text-muted); width: 28px; height: 28px;">
+                    <?= component('icon', ['name' => 'x', 'size' => 16]) ?>
+                </button>
+            </div>
+            <div id="command-palette-results" style="overflow-y: auto; padding: 0.5rem 0; flex: 1;">
+                <!-- Dynamically populated -->
+            </div>
+            <div style="padding: 0.625rem 1.25rem; border-top: 1px solid var(--border-color); background: var(--surface-secondary); display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+                <div style="display: flex; gap: 1rem;">
+                    <span><kbd style="font-family: monospace; background: var(--surface); padding: 0.125rem 0.375rem; border-radius: 3px; border: 1px solid var(--border-color);">↑↓</kbd> to navigate</span>
+                    <span><kbd style="font-family: monospace; background: var(--surface); padding: 0.125rem 0.375rem; border-radius: 3px; border: 1px solid var(--border-color);">↵</kbd> to select</span>
+                    <span><kbd style="font-family: monospace; background: var(--surface); padding: 0.125rem 0.375rem; border-radius: 3px; border: 1px solid var(--border-color);">esc</kbd> to close</span>
+                </div>
+                <span>SHILPA Global Interface</span>
+            </div>
+        </div>
+    </div>
+
+    <style>
+    .command-item-active {
+        background: var(--surface-secondary) !important;
+    }
+    </style>
+
     <script src="/js/design-system.js"></script>
     <script src="/js/navigation.js"></script>
+    <script src="/js/command-palette.js"></script>
 </body>
 </html>
