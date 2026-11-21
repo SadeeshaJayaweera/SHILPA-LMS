@@ -129,10 +129,17 @@ ob_start();
 
                             <div style="display: flex; flex-direction: column; gap: 0.5rem; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
                                 <?php foreach ($lessons as $lIndex => $les): ?>
+                                    <?php $isLessonDone = in_array((int)$les->id, $completedLessonIds ?? [], true); ?>
                                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; border-radius: var(--radius-md); background: var(--bg-surface); font-size: 0.875rem;">
                                         <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                            <?= component('icon', ['name' => $les->content_type === 'video' ? 'play-circle' : 'file-text', 'size' => 16]) ?>
-                                            <span><?= $mIndex + 1 ?>.<?= $lIndex + 1 ?> <?= e((string)$les->title) ?></span>
+                                            <?php if ($isLessonDone): ?>
+                                                <span style="color: #10b981;"><?= component('icon', ['name' => 'check-circle', 'size' => 16]) ?></span>
+                                            <?php else: ?>
+                                                <?= component('icon', ['name' => $les->content_type === 'video' ? 'play-circle' : 'file-text', 'size' => 16]) ?>
+                                            <?php endif; ?>
+                                            <span <?= $isLessonDone ? 'style="text-decoration: line-through; opacity: 0.8;"' : '' ?>>
+                                                <?= $mIndex + 1 ?>.<?= $lIndex + 1 ?> <?= e((string)$les->title) ?>
+                                            </span>
                                             <?php if ($les->isFreePreview()): ?>
                                                 <span class="badge badge-success" style="font-size: 0.625rem;">Free Preview</span>
                                             <?php endif; ?>

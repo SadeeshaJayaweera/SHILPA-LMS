@@ -117,6 +117,10 @@ class QueryBuilder {
         return (int)($res['total'] ?? 0);
     }
 
+    public function exists(): bool {
+        return $this->count() > 0;
+    }
+
     public function insert(array $values): int|string {
         $columns = array_keys($values);
         $placeholders = array_fill(0, count($columns), '?');

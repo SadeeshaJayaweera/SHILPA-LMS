@@ -68,12 +68,28 @@ ob_start();
                         </div>
                     </div>
 
-                    <?php if ($nextLesson): ?>
-                        <a href="/courses/<?= (int)$course->C_ID ?>/learn/<?= (int)$nextLesson->id ?>" class="btn btn-primary">
-                            <span>Complete &amp; Continue</span>
-                            <?= component('icon', ['name' => 'check', 'size' => 16]) ?>
-                        </a>
-                    <?php endif; ?>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <?php if ($isEnrolled): ?>
+                            <form method="POST" action="/courses/<?= (int)$course->C_ID ?>/lessons/<?= (int)$lesson->id ?>/complete" style="margin: 0;">
+                                <button type="submit" class="btn <?= $isLessonCompleted ? 'btn-secondary' : 'btn-primary' ?>" style="font-size: 0.875rem;">
+                                    <?php if ($isLessonCompleted): ?>
+                                        <?= component('icon', ['name' => 'check-circle', 'size' => 16]) ?>
+                                        <span style="color: #10b981; font-weight: 700;">Completed</span>
+                                    <?php else: ?>
+                                        <?= component('icon', ['name' => 'circle', 'size' => 16]) ?>
+                                        <span>Mark as Complete</span>
+                                    <?php endif; ?>
+                                </button>
+                            </form>
+                        <?php endif; ?>
+
+                        <?php if ($nextLesson): ?>
+                            <a href="/courses/<?= (int)$course->C_ID ?>/learn/<?= (int)$nextLesson->id ?>" class="btn btn-secondary">
+                                <span>Next Lecture</span>
+                                <?= component('icon', ['name' => 'chevron-right', 'size' => 16]) ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
                 <!-- Lecture Body / Transcript -->
@@ -97,10 +113,17 @@ ob_start();
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                             <?php foreach ($m->lessons() as $l): ?>
-                                <?php $isActive = ((int)$l->id === (int)$lesson->id); ?>
+                                <?php
+                                $isActive = ((int)$l->id === (int)$lesson->id);
+                                $isDone = in_array((int)$l->id, $completedLessonIds ?? [], true);
+                                ?>
                                 <a href="/courses/<?= (int)$course->C_ID ?>/learn/<?= (int)$l->id ?>" style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.625rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.8125rem; <?= $isActive ? 'background: var(--primary); color: white; font-weight: 600;' : 'background: var(--bg-surface); color: var(--text-base);' ?>">
                                     <div style="display: flex; align-items: center; gap: 0.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                        <?= component('icon', ['name' => $isActive ? 'play' : 'file-text', 'size' => 14]) ?>
+                                        <?php if ($isDone): ?>
+                                            <?= component('icon', ['name' => 'check-circle', 'size' => 14]) ?>
+                                        <?php else: ?>
+                                            <?= component('icon', ['name' => $isActive ? 'play' : 'file-text', 'size' => 14]) ?>
+                                        <?php endif; ?>
                                         <span><?= e((string)$l->title) ?></span>
                                     </div>
                                     <span style="font-size: 0.6875rem; opacity: 0.8;"><?= (int)$l->duration_minutes ?>m</span>
