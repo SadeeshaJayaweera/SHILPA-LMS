@@ -13,6 +13,7 @@ $testClasses = [
     \Tests\Unit\CourseTest::class,
     \Tests\Feature\HealthcheckTest::class,
     \Tests\Feature\LegacyWorkflowTest::class,
+    \Tests\Feature\DesignSystemTest::class,
 ];
 
 $totalTests = 0;

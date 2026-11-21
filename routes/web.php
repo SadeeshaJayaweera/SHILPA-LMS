@@ -6,6 +6,11 @@ use App\Core\Router;
 
 return function (Router $router): void {
     $router->get('/', [HomeController::class, 'index']);
+    $router->get('/design-system', function () {
+        return view('design-system/index', [
+            'title' => 'Design System & Component Library — SHILPA LMS',
+        ]);
+    });
     $router->get('/health', function () {
         return json([
             'status' => 'healthy',
