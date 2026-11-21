@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AdminDashboardController;
+use App\Controllers\AnalyticsController;
 use App\Controllers\AssignmentController;
 use App\Controllers\AuthController;
 use App\Controllers\CommunicationController;
@@ -164,4 +165,11 @@ return function (Router $router): void {
     $router->post('/notifications/read-all', [NotificationController::class, 'markAllRead']);
     $router->get('/notifications/settings', [NotificationController::class, 'settings']);
     $router->post('/notifications/settings', [NotificationController::class, 'updateSettings']);
+
+    // Learning Analytics & Performance Insights Routes
+    $router->get('/analytics', [AnalyticsController::class, 'studentAnalytics']);
+    $router->get('/faculty/courses/{id}/analytics', [AnalyticsController::class, 'courseAnalytics']);
+    $router->get('/admin/analytics', [AnalyticsController::class, 'institutionalAnalytics']);
+    $router->get('/api/analytics/student/{id}', [AnalyticsController::class, 'apiStudent']);
+    $router->get('/api/analytics/course/{id}', [AnalyticsController::class, 'apiCourse']);
 };
