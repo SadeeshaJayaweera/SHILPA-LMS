@@ -166,7 +166,28 @@ ob_start();
 
         <!-- Right: Outcomes, Prerequisites & Instructor -->
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <!-- Learning Outcomes -->
+            <!-- Assignments Section -->
+            <?php if (!empty($assignments)): ?>
+                <div class="card" style="padding: 1.5rem;">
+                    <h3 style="font-size: 1rem; font-weight: 700; margin: 0 0 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <?= component('icon', ['name' => 'clipboard', 'size' => 18]) ?>
+                        <span>Coursework &amp; Projects (<?= count($assignments) ?>)</span>
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <?php foreach ($assignments as $asgn): ?>
+                            <a href="/courses/<?= (int)$course->C_ID ?>/assignments/<?= (int)$asgn->id ?>" style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; background: var(--bg-surface-elevated); border-radius: var(--radius-sm); text-decoration: none; color: inherit; font-size: 0.8125rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <?= component('icon', ['name' => 'file-text', 'size' => 14]) ?>
+                                    <span style="font-weight: 600;"><?= e((string)$asgn->title) ?></span>
+                                </div>
+                                <div style="color: var(--text-muted); font-size: 0.75rem;">
+                                    <?= (int)$asgn->max_score ?> pts
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
             <div class="card" style="padding: 1.5rem;">
                 <h3 style="font-size: 1rem; font-weight: 700; margin: 0 0 1rem; display: flex; align-items: center; gap: 0.5rem;">
                     <?= component('icon', ['name' => 'check-circle', 'size' => 18]) ?>

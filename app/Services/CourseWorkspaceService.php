@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Assignment;
 use App\Models\Course;
 use App\Models\CourseModule;
 use App\Models\CourseResource;
@@ -47,6 +48,7 @@ class CourseWorkspaceService {
             'isEnrolled' => $isEnrolled,
             'enrollment' => $enrollment ? new Enrollment($enrollment) : null,
             'resources' => CourseResource::forCourse($courseId),
+            'assignments' => Assignment::forCourse($courseId, true),
             'completedLessonIds' => ($userId !== null && $userId > 0) ? LessonCompletion::completedLessonIdsForCourse($userId, $courseId) : [],
         ];
     }

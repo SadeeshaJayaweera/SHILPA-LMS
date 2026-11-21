@@ -29,6 +29,7 @@ $testClasses = [
     \Tests\Feature\CurriculumAndLessonBuilderTest::class,
     \Tests\Feature\SecureLearningResourcesTest::class,
     \Tests\Feature\LearningProgressAndCompletionTest::class,
+    \Tests\Feature\AssignmentAndSubmissionManagementTest::class,
 ];
 
 $totalTests = 0;

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AdminDashboardController;
+use App\Controllers\AssignmentController;
 use App\Controllers\AuthController;
 use App\Controllers\CourseDiscoveryController;
 use App\Controllers\CourseManagementController;
@@ -102,6 +103,13 @@ return function (Router $router): void {
     // Learning Progress & Completion Tracking Routes
     $router->post('/courses/{courseId}/lessons/{lessonId}/complete', [ProgressTrackingController::class, 'toggle']);
     $router->get('/api/courses/{courseId}/progress', [ProgressTrackingController::class, 'progress']);
+
+    // Course Assignments and Submission Management Routes
+    $router->get('/faculty/courses/{id}/assignments', [AssignmentController::class, 'facultyIndex']);
+    $router->get('/faculty/courses/{id}/assignments/create', [AssignmentController::class, 'create']);
+    $router->post('/faculty/courses/{id}/assignments', [AssignmentController::class, 'store']);
+    $router->get('/courses/{courseId}/assignments/{id}', [AssignmentController::class, 'show']);
+    $router->post('/courses/{courseId}/assignments/{id}/submit', [AssignmentController::class, 'submit']);
 
     // Course Enrollment and Access Control Routes
     $router->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);
