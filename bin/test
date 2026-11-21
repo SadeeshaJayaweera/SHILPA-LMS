@@ -17,6 +17,7 @@ $testClasses = [
     \Tests\Feature\LandingAndDiscoveryTest::class,
     \Tests\Feature\AuthInterfaceTest::class,
     \Tests\Feature\NavigationAndLayoutTest::class,
+    \Tests\Feature\StudentDashboardTest::class,
 ];
 
 $totalTests = 0;
