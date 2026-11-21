@@ -19,9 +19,9 @@ Thumbs.db
 
 # Logs and runtime artifacts
 *.log
-storage/logs/
-storage/framework/
-storage/app/
+*.sqlite
+/storage/*
+!/storage/.gitkeep
 coverage/
 .phpunit.result.cache
 .php-cs-fixer.cache

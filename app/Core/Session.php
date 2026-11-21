@@ -35,6 +35,14 @@ class Session {
             'samesite' => $sameSite,
         ]);
 
+        $savePath = dirname(__DIR__, 2) . '/storage/framework/sessions';
+        if (!is_dir($savePath)) {
+            @mkdir($savePath, 0775, true);
+        }
+        if (is_writable($savePath)) {
+            @ini_set('session.save_path', $savePath);
+        }
+
         session_start();
         $this->started = true;
 

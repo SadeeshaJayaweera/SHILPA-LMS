@@ -29,6 +29,7 @@ abstract class TestCase {
         ]);
         $this->pdo->exec('PRAGMA foreign_keys = ON;');
         Connection::set('mysql', $this->pdo);
+        Connection::set('sqlite', $this->pdo);
 
         $runner = new MigrationRunner($this->pdo, dirname(__DIR__, 2) . '/database/migrations');
         $runner->run();
