@@ -9,6 +9,7 @@ use App\Controllers\CourseManagementController;
 use App\Controllers\CourseWorkspaceController;
 use App\Controllers\CurriculumBuilderController;
 use App\Controllers\EnrollmentController;
+use App\Controllers\GradebookController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
 use App\Controllers\ProfileController;
@@ -122,6 +123,12 @@ return function (Router $router): void {
     $router->get('/courses/{courseId}/quizzes/{id}/take/{attemptId}', [QuizController::class, 'take']);
     $router->post('/courses/{courseId}/quizzes/{id}/take/{attemptId}', [QuizController::class, 'submit']);
     $router->get('/courses/{courseId}/quizzes/{id}/result/{attemptId}', [QuizController::class, 'result']);
+
+    // Gradebook and Academic Results Routes
+    $router->get('/faculty/courses/{id}/gradebook', [GradebookController::class, 'facultyGradebook']);
+    $router->post('/faculty/submissions/{id}/grade', [GradebookController::class, 'gradeSubmission']);
+    $router->post('/faculty/courses/{id}/gradebook/publish', [GradebookController::class, 'publishGrades']);
+    $router->get('/student/grades', [GradebookController::class, 'studentGrades']);
 
     // Course Enrollment and Access Control Routes
     $router->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);
