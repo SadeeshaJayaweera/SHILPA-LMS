@@ -121,3 +121,15 @@ if (!function_exists('cache')) {
         return $store->get($key, $default);
     }
 }
+
+if (!function_exists('storage')) {
+    function storage(?string $disk = null): \App\Storage\DiskInterface {
+        return \App\Storage\StorageManager::disk($disk ?? 'local');
+    }
+}
+
+if (!function_exists('dispatch')) {
+    function dispatch(object $job, string $queue = 'default'): int {
+        return \App\Queue\QueueManager::push($job, [], $queue);
+    }
+}

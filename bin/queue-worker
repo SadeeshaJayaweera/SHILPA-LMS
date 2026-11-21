@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+$app = new \App\Core\Application(dirname(__DIR__));
+$app->bootstrap();
+
+$options = getopt('', ['queue::', 'max-jobs::', 'once']);
+$queueName = (string)($options['queue'] ?? 'default');
+$maxJobs = isset($options['once']) ? 1 : (int)($options['max-jobs'] ?? 0);
+
+echo "\033[1;36mSHILPA LMS Queue Worker Started\033[0m (Queue: {$queueName})\n";
+
+$worker = new \App\Queue\Worker(null, 3);
+$processed = $worker->work($maxJobs, $queueName);
+
+echo "\033[32mProcessed {$processed} jobs.\033[0m\n";
