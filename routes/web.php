@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Controllers\AuthController;
 use App\Controllers\CourseDiscoveryController;
 use App\Controllers\HomeController;
+use App\Controllers\StudentDashboardController;
 use App\Controllers\WorkspaceController;
 use App\Core\Router;
 
@@ -12,6 +13,9 @@ return function (Router $router): void {
     $router->get('/courses', [CourseDiscoveryController::class, 'index']);
     $router->get('/courses/{id}', [CourseDiscoveryController::class, 'show']);
     $router->get('/workspace', [WorkspaceController::class, 'index']);
+    $router->get('/student/dashboard', [StudentDashboardController::class, 'index']);
+    $router->get('/dashboard', [StudentDashboardController::class, 'index']);
+    $router->get('/api/student/analytics', [StudentDashboardController::class, 'analytics']);
     $router->get('/design-system', function () {
         return view('design-system/index', [
             'title' => 'Design System & Component Library — SHILPA LMS',
