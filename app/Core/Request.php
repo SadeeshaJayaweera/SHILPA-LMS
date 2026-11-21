@@ -12,6 +12,7 @@ class Request {
     private array $cookies;
     private array $server;
     private array $headers;
+    private array $files;
     private ?array $json = null;
 
     public function __construct(
@@ -20,7 +21,8 @@ class Request {
         ?array $query = null,
         ?array $post = null,
         ?array $cookies = null,
-        ?array $server = null
+        ?array $server = null,
+        ?array $files = null
     ) {
         $this->server = $server ?? $_SERVER;
         $this->method = strtoupper($method ?? ($this->server['REQUEST_METHOD'] ?? 'GET'));
@@ -29,6 +31,7 @@ class Request {
         $this->query = $query ?? $_GET;
         $this->post = $post ?? $_POST;
         $this->cookies = $cookies ?? $_COOKIE;
+        $this->files = $files ?? $_FILES;
         $this->headers = $this->parseHeaders();
     }
 
@@ -36,12 +39,12 @@ class Request {
         return new self();
     }
 
-    public static function create(string $method = 'GET', string $uri = '/', array $parameters = [], array $cookies = [], array $server = []): self {
+    public static function create(string $method = 'GET', string $uri = '/', array $parameters = [], array $cookies = [], array $server = [], array $files = []): self {
         $query = strtoupper($method) === 'GET' ? $parameters : [];
         $post = strtoupper($method) === 'POST' ? $parameters : [];
         $server['REQUEST_METHOD'] = strtoupper($method);
         $server['REQUEST_URI'] = $uri;
-        return new self($method, $uri, $query, $post, $cookies, $server);
+        return new self($method, $uri, $query, $post, $cookies, $server, $files);
     }
 
     public function method(): string {
@@ -127,6 +130,14 @@ class Request {
     public function isAjax(): bool {
         return $this->header('X-Requested-With') === 'XMLHttpRequest' ||
             str_contains((string)$this->header('Accept'), 'application/json');
+    }
+
+    public function file(string $key): ?array {
+        return $this->files[$key] ?? null;
+    }
+
+    public function files(): array {
+        return $this->files;
     }
 
     public function ip(): string {

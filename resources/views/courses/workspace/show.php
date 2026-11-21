@@ -173,6 +173,35 @@ ob_start();
                 </ul>
             </div>
 
+            <!-- Learning Resources Section -->
+            <?php if (!empty($resources)): ?>
+                <div class="card" style="padding: 1.5rem;">
+                    <h3 style="font-size: 1rem; font-weight: 700; margin: 0 0 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <?= component('icon', ['name' => 'download-cloud', 'size' => 18]) ?>
+                        <span>Course Resources (<?= count($resources) ?>)</span>
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <?php foreach ($resources as $res): ?>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: var(--bg-surface-elevated); border-radius: var(--radius-sm); font-size: 0.8125rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; overflow: hidden;">
+                                    <?= component('icon', ['name' => $res->icon(), 'size' => 16]) ?>
+                                    <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px;"><?= e((string)$res->title) ?></span>
+                                </div>
+                                <div>
+                                    <?php if ($isEnrolled || $res->isPublic()): ?>
+                                        <a href="/courses/<?= (int)$course->C_ID ?>/resources/<?= (int)$res->id ?>/download" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.2rem 0.5rem;">
+                                            <?= component('icon', ['name' => 'download', 'size' => 12]) ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <span style="color: var(--text-muted); font-size: 0.75rem;">Locked</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <!-- Prerequisites Card -->
             <div class="card" style="padding: 1.5rem;">
                 <h3 style="font-size: 1rem; font-weight: 700; margin: 0 0 0.75rem; display: flex; align-items: center; gap: 0.5rem;">

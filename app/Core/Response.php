@@ -28,6 +28,19 @@ class Response {
         return new self($html, $statusCode, ['Content-Type' => 'text/html; charset=UTF-8']);
     }
 
+    public static function download(string $filePath, ?string $filename = null, string $contentType = 'application/octet-stream'): self {
+        $content = file_exists($filePath) ? (string)file_get_contents($filePath) : '';
+        $filename = $filename ?: basename($filePath);
+        return new self($content, 200, [
+            'Content-Type' => $contentType,
+            'Content-Disposition' => 'attachment; filename="' . addslashes($filename) . '"',
+            'Content-Length' => (string)strlen($content),
+            'X-Content-Type-Options' => 'nosniff',
+            'Cache-Control' => 'private, no-cache, must-revalidate',
+            'Pragma' => 'no-cache',
+        ]);
+    }
+
     public function header(string $key, string $value): self {
         $this->headers[$key] = $value;
         return $this;
