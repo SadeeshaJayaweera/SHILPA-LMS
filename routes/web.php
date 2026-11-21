@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Controllers\AuthController;
 use App\Controllers\CourseDiscoveryController;
 use App\Controllers\HomeController;
 use App\Core\Router;
@@ -23,4 +24,16 @@ return function (Router $router): void {
             'php' => PHP_VERSION,
         ]);
     });
+
+    // Authentication & Onboarding Routes
+    $router->get('/login', [AuthController::class, 'showLogin']);
+    $router->post('/login', [AuthController::class, 'login']);
+    $router->get('/register', [AuthController::class, 'showRegister']);
+    $router->post('/register', [AuthController::class, 'register']);
+    $router->get('/forgot-password', [AuthController::class, 'showForgotPassword']);
+    $router->post('/forgot-password', [AuthController::class, 'sendResetLink']);
+    $router->get('/onboarding', [AuthController::class, 'showOnboarding']);
+    $router->post('/onboarding', [AuthController::class, 'completeOnboarding']);
+    $router->get('/logout', [AuthController::class, 'logout']);
+    $router->post('/logout', [AuthController::class, 'logout']);
 };

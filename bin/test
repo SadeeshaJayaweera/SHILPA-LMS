@@ -15,6 +15,7 @@ $testClasses = [
     \Tests\Feature\LegacyWorkflowTest::class,
     \Tests\Feature\DesignSystemTest::class,
     \Tests\Feature\LandingAndDiscoveryTest::class,
+    \Tests\Feature\AuthInterfaceTest::class,
 ];
 
 $totalTests = 0;

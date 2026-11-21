@@ -71,14 +71,14 @@ class Session {
     }
 
     public function regenerate(bool $deleteOldSession = true): void {
-        if ($this->started) {
+        if ($this->started && session_status() === PHP_SESSION_ACTIVE) {
             session_regenerate_id($deleteOldSession);
         }
     }
 
     public function destroy(): void {
-        if ($this->started) {
-            session_unset();
+        $_SESSION = [];
+        if ($this->started && session_status() === PHP_SESSION_ACTIVE) {
             session_destroy();
             $this->started = false;
         }

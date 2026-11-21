@@ -25,6 +25,20 @@ class TestResponse {
         return $this->assertStatus(200);
     }
 
+    public function assertRedirect(?string $expectedUrl = null): self {
+        $actual = $this->response->getStatusCode();
+        if ($actual !== 301 && $actual !== 302) {
+            throw new RuntimeException("Expected redirect status (301/302), got $actual. Content: " . substr($this->response->getContent(), 0, 200));
+        }
+        if ($expectedUrl !== null) {
+            $location = $this->response->getHeader('Location');
+            if ($location !== $expectedUrl) {
+                throw new RuntimeException("Expected redirect to [$expectedUrl], got [$location].");
+            }
+        }
+        return $this;
+    }
+
     public function assertNotFound(): self {
         return $this->assertStatus(404);
     }

@@ -1,7 +1,13 @@
 <?php
+// Modernized forward-compatibility bridge for login.php
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    header("Location: /login");
+    exit;
+}
 session_start();
 if (isset($_SESSION["user"])) {
   header("Location: ../welcome.php");
+  exit;
 }
 ?>
 <!DOCTYPE html>
