@@ -8,6 +8,7 @@ use App\Models\CourseModule;
 use App\Models\CourseResource;
 use App\Models\Enrollment;
 use App\Models\Lesson;
+use App\Models\LessonCompletion;
 
 class CourseWorkspaceService {
     public static function getWorkspaceOverview(int $courseId, ?int $userId = null): array {
@@ -46,6 +47,7 @@ class CourseWorkspaceService {
             'isEnrolled' => $isEnrolled,
             'enrollment' => $enrollment ? new Enrollment($enrollment) : null,
             'resources' => CourseResource::forCourse($courseId),
+            'completedLessonIds' => ($userId !== null && $userId > 0) ? LessonCompletion::completedLessonIdsForCourse($userId, $courseId) : [],
         ];
     }
 
@@ -89,6 +91,8 @@ class CourseWorkspaceService {
         }
 
         $isEnrolled = ($userId !== null && $userId > 0) ? Enrollment::isEnrolled($userId, $courseId) : false;
+        $completedLessonIds = ($userId !== null && $userId > 0) ? LessonCompletion::completedLessonIdsForCourse($userId, $courseId) : [];
+        $isLessonCompleted = in_array($lessonId, $completedLessonIds, true);
 
         return [
             'course' => $course,
@@ -99,6 +103,8 @@ class CourseWorkspaceService {
             'prevLesson' => $prevLesson,
             'nextLesson' => $nextLesson,
             'isEnrolled' => $isEnrolled,
+            'completedLessonIds' => $completedLessonIds,
+            'isLessonCompleted' => $isLessonCompleted,
         ];
     }
 }

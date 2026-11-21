@@ -11,6 +11,7 @@ use App\Controllers\EnrollmentController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
 use App\Controllers\ProfileController;
+use App\Controllers\ProgressTrackingController;
 use App\Controllers\ResourceManagementController;
 use App\Controllers\StudentDashboardController;
 use App\Controllers\WorkspaceController;
@@ -97,6 +98,10 @@ return function (Router $router): void {
     $router->post('/faculty/courses/{id}/resources', [ResourceManagementController::class, 'store']);
     $router->post('/faculty/courses/{courseId}/resources/{id}/delete', [ResourceManagementController::class, 'destroy']);
     $router->get('/courses/{courseId}/resources/{id}/download', [ResourceManagementController::class, 'download']);
+
+    // Learning Progress & Completion Tracking Routes
+    $router->post('/courses/{courseId}/lessons/{lessonId}/complete', [ProgressTrackingController::class, 'toggle']);
+    $router->get('/api/courses/{courseId}/progress', [ProgressTrackingController::class, 'progress']);
 
     // Course Enrollment and Access Control Routes
     $router->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);
