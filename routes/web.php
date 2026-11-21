@@ -11,6 +11,7 @@ use App\Controllers\EnrollmentController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
 use App\Controllers\ProfileController;
+use App\Controllers\ResourceManagementController;
 use App\Controllers\StudentDashboardController;
 use App\Controllers\WorkspaceController;
 use App\Core\Router;
@@ -90,6 +91,12 @@ return function (Router $router): void {
     $router->post('/faculty/courses/{courseId}/lessons/{lessonId}/delete', [CurriculumBuilderController::class, 'deleteLesson']);
     $router->post('/faculty/courses/{courseId}/modules/{moduleId}/lessons/reorder', [CurriculumBuilderController::class, 'reorderLessons']);
     $router->post('/faculty/courses/{courseId}/lessons/{lessonId}/blocks', [CurriculumBuilderController::class, 'storeBlock']);
+
+    // Secure Learning Resources and File Management Routes
+    $router->get('/faculty/courses/{id}/resources', [ResourceManagementController::class, 'index']);
+    $router->post('/faculty/courses/{id}/resources', [ResourceManagementController::class, 'store']);
+    $router->post('/faculty/courses/{courseId}/resources/{id}/delete', [ResourceManagementController::class, 'destroy']);
+    $router->get('/courses/{courseId}/resources/{id}/download', [ResourceManagementController::class, 'download']);
 
     // Course Enrollment and Access Control Routes
     $router->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);

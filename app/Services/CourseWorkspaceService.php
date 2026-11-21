@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Models\Course;
 use App\Models\CourseModule;
+use App\Models\CourseResource;
 use App\Models\Enrollment;
 use App\Models\Lesson;
 
@@ -44,6 +45,7 @@ class CourseWorkspaceService {
             'totalMinutes' => $totalMinutes,
             'isEnrolled' => $isEnrolled,
             'enrollment' => $enrollment ? new Enrollment($enrollment) : null,
+            'resources' => CourseResource::forCourse($courseId),
         ];
     }
 
