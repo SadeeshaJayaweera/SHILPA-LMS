@@ -96,6 +96,13 @@ class Request {
         return $this->json[$key] ?? $default;
     }
 
+    public function server(?string $key = null, mixed $default = null): mixed {
+        if ($key === null) {
+            return $this->server;
+        }
+        return $this->server[$key] ?? $default;
+    }
+
     public function header(string $key, ?string $default = null): ?string {
         $key = strtolower(str_replace('_', '-', $key));
         return $this->headers[$key] ?? $default;

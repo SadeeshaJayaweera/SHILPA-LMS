@@ -44,6 +44,10 @@ return function (Router $router): void {
     $router->post('/register', [AuthController::class, 'register']);
     $router->get('/forgot-password', [AuthController::class, 'showForgotPassword']);
     $router->post('/forgot-password', [AuthController::class, 'sendResetLink']);
+    $router->get('/reset-password', [AuthController::class, 'showResetPassword']);
+    $router->post('/reset-password', [AuthController::class, 'updatePassword']);
+    $router->get('/two-factor', [AuthController::class, 'showTwoFactor']);
+    $router->post('/two-factor/verify', [AuthController::class, 'verifyTwoFactor']);
     $router->get('/onboarding', [AuthController::class, 'showOnboarding']);
     $router->post('/onboarding', [AuthController::class, 'completeOnboarding']);
     $router->get('/logout', [AuthController::class, 'logout']);
