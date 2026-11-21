@@ -25,6 +25,7 @@ $testClasses = [
     \Tests\Feature\SecurityAuditingAndHardeningTest::class,
     \Tests\Feature\AdvancedCourseManagementTest::class,
     \Tests\Feature\CourseEnrollmentAndAccessTest::class,
+    \Tests\Feature\CourseWorkspaceAndLearningTheaterTest::class,
 ];
 
 $totalTests = 0;
