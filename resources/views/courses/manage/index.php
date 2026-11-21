@@ -136,6 +136,11 @@ ob_start();
                                             </button>
                                         </form>
 
+                                        <a href="/faculty/courses/<?= (int)$c->C_ID ?>/quizzes" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+                                            <?= component('icon', ['name' => 'help-circle', 'size' => 12]) ?>
+                                            <span>Quizzes</span>
+                                        </a>
+
                                         <a href="/faculty/courses/<?= (int)$c->C_ID ?>/assignments" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
                                             <?= component('icon', ['name' => 'clipboard', 'size' => 12]) ?>
                                             <span>Assignments</span>
