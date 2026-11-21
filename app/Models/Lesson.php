@@ -26,4 +26,8 @@ class Lesson extends Model {
     public function isFreePreview(): bool {
         return (int)($this->is_free_preview ?? 0) === 1;
     }
+
+    public function blocks(): array {
+        return LessonBlock::forLesson((int)$this->id);
+    }
 }

@@ -24,6 +24,14 @@ class CourseModule extends Model {
         return array_map(fn($r) => new self($r), $rows);
     }
 
+    public static function allForCourse(int $courseId): array {
+        $rows = self::query()
+            ->where('course_id', $courseId)
+            ->orderBy('order_index', 'ASC')
+            ->get();
+        return array_map(fn($r) => new self($r), $rows);
+    }
+
     public function lessons(): array {
         $rows = Lesson::query()
             ->where('module_id', $this->id)
