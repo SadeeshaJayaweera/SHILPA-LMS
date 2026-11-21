@@ -76,4 +76,38 @@ class AdminDashboardController extends Controller {
             'metrics' => $data['metrics'],
         ]);
     }
+
+    public function securityAudit(Request $request): Response {
+        if (!session()->has('user')) {
+            return $this->redirect('/login');
+        }
+
+        $userRole = (string)session()->get('user_role', '');
+        if (!in_array($userRole, ['a', 'm', 'admin', 'administrator', 'superadmin'], true)) {
+            return $this->redirect('/workspace');
+        }
+
+        $logs = \App\Security\SecurityAuditLog::query()->orderBy('id', 'DESC')->limit(100)->get();
+        $integrity = \App\Security\SecurityAuditLog::verifyChainIntegrity(100);
+
+        return $this->render('admin/security-audit', [
+            'title' => 'Security Audit & Tamper Log — ' . config('app.name', 'SHILPA LMS'),
+            'logs' => $logs,
+            'integrity' => $integrity,
+        ]);
+    }
+
+    public function verifyAuditLogIntegrity(Request $request): Response {
+        if (!session()->has('user')) {
+            return json(['error' => 'Unauthorized'], 401);
+        }
+
+        $userRole = (string)session()->get('user_role', '');
+        if (!in_array($userRole, ['a', 'm', 'admin', 'administrator', 'superadmin'], true)) {
+            return json(['error' => 'Forbidden'], 403);
+        }
+
+        $integrity = \App\Security\SecurityAuditLog::verifyChainIntegrity(500);
+        return json($integrity);
+    }
 }

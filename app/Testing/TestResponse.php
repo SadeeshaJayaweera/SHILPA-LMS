@@ -17,6 +17,14 @@ class TestResponse {
         return $this->response->getStatusCode();
     }
 
+    public function getHeaders(): array {
+        return $this->response->getHeaders();
+    }
+
+    public function getHeader(string $name): ?string {
+        return $this->response->getHeader($name);
+    }
+
     public function assertStatus(int $expectedStatus): self {
         $actual = $this->response->getStatusCode();
         if ($actual !== $expectedStatus) {
