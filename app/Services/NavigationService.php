@@ -223,6 +223,31 @@ class NavigationService {
      * Get real-time notifications for the header bell dropdown.
      */
     public static function getQuickNotifications(): array {
+        if (session()->has('user')) {
+            $userId = (int)session()->get('user_id', 0);
+            try {
+                $live = NotificationService::getUserNotifications($userId, false, 5);
+                if (!empty($live)) {
+                    return array_map(function ($n) {
+                        $type = 'info';
+                        if (str_starts_with((string)$n->type, 'assignment')) $type = 'warning';
+                        elseif (str_starts_with((string)$n->type, 'grade')) $type = 'success';
+
+                        return [
+                            'id' => (int)$n->id,
+                            'title' => (string)$n->title,
+                            'description' => (string)$n->message,
+                            'time' => date('M d', strtotime((string)$n->created_at)),
+                            'type' => $type,
+                            'unread' => !$n->isRead(),
+                        ];
+                    }, $live);
+                }
+            } catch (\Throwable $e) {
+                // Fall back to showcase notifications if tables not initialized
+            }
+        }
+
         return [
             [
                 'id' => 1,
