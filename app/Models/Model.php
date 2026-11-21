@@ -84,6 +84,13 @@ abstract class Model {
         $this->attributes[$name] = $value;
     }
 
+    public function __isset(string $name): bool {
+        if ($name === 'id') {
+            return isset($this->attributes['id']) || isset($this->attributes[$this->primaryKey]);
+        }
+        return isset($this->attributes[$name]) && $this->attributes[$name] !== null;
+    }
+
     public function toArray(): array {
         return $this->attributes;
     }

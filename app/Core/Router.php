@@ -83,15 +83,17 @@ class Router {
 
             if (preg_match($route['regex'], $path, $matches)) {
                 $params = array_filter($matches, fn($k) => !is_numeric($k), ARRAY_FILTER_USE_KEY);
-                return $this->runRoute($route, $request, $params);
+                $response = $this->runRoute($route, $request, $params);
+                return \App\Security\SecurityHeaders::apply($response);
             }
         }
 
-        return new Response(
+        $response = new Response(
             View::render('errors/404', ['path' => $path]),
             404,
             ['Content-Type' => 'text/html; charset=UTF-8']
         );
+        return \App\Security\SecurityHeaders::apply($response);
     }
 
     private function runRoute(array $route, Request $request, array $params): Response {

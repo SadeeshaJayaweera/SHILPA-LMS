@@ -23,6 +23,8 @@ return function (Router $router): void {
     $router->get('/admin/users', [AdminDashboardController::class, 'users']);
     $router->get('/api/student/analytics', [StudentDashboardController::class, 'analytics']);
     $router->get('/api/admin/metrics', [AdminDashboardController::class, 'systemHealth']);
+    $router->get('/admin/security-audit', [AdminDashboardController::class, 'securityAudit']);
+    $router->post('/admin/security-audit/verify', [AdminDashboardController::class, 'verifyAuditLogIntegrity']);
     $router->get('/design-system', function () {
         return view('design-system/index', [
             'title' => 'Design System & Component Library — SHILPA LMS',

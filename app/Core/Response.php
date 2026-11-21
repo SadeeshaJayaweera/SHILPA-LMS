@@ -33,6 +33,11 @@ class Response {
         return $this;
     }
 
+    public function setHeader(string $key, string $value): self {
+        $this->headers[$key] = $value;
+        return $this;
+    }
+
     public function status(int $code): self {
         $this->statusCode = $code;
         return $this;
