@@ -69,6 +69,8 @@ class CourseManagementService {
             'updated_at' => $now,
         ]);
 
+        cache()->tags(['courses'])->flush();
+
         return $course;
     }
 
@@ -124,6 +126,8 @@ class CourseManagementService {
         $meta->updated_at = date('Y-m-d H:i:s');
         $meta->save();
 
+        cache()->tags(['courses'])->flush();
+
         return $course;
     }
 
@@ -138,6 +142,8 @@ class CourseManagementService {
             $meta->delete();
         }
 
+        cache()->tags(['courses'])->flush();
+
         return $course->delete();
     }
 
@@ -146,6 +152,8 @@ class CourseManagementService {
         if (!$course) {
             return false;
         }
+
+        cache()->tags(['courses'])->flush();
 
         if ($course->isPublished()) {
             $course->unpublish();

@@ -17,6 +17,7 @@ use App\Controllers\GradebookController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
 use App\Controllers\NotificationController;
+use App\Controllers\PerformanceController;
 use App\Controllers\PreferencesController;
 use App\Controllers\ProfileController;
 use App\Controllers\ProgressTrackingController;
@@ -203,4 +204,9 @@ return function (Router $router): void {
     $router->post('/preferences/theme', [PreferencesController::class, 'setTheme']);
     $router->post('/preferences/locale', [PreferencesController::class, 'setLocale']);
     $router->post('/api/preferences', [PreferencesController::class, 'apiUpdate']);
+
+    // Performance Profiling & Caching Optimization Routes
+    $router->get('/admin/performance', [PerformanceController::class, 'adminMetrics']);
+    $router->post('/admin/cache/flush', [PerformanceController::class, 'flushCache']);
+    $router->get('/api/performance/metrics', [PerformanceController::class, 'apiMetrics']);
 };

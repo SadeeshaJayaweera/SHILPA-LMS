@@ -26,17 +26,19 @@ class Course extends Model {
     }
 
     public static function getTopCourses(int $limit = 4): array {
-        $rows = self::query()
-            ->where('TOP_COURSE', 'Yes')
-            ->orWhere('TOP_COURSE', 'yes')
-            ->limit($limit)
-            ->get();
+        return cache()->tags(['courses', 'catalog'])->remember("top_courses_{$limit}", 3600, function () use ($limit) {
+            $rows = self::query()
+                ->where('TOP_COURSE', 'Yes')
+                ->orWhere('TOP_COURSE', 'yes')
+                ->limit($limit)
+                ->get();
 
-        if (empty($rows)) {
-            $rows = self::query()->limit($limit)->get();
-        }
+            if (empty($rows)) {
+                $rows = self::query()->limit($limit)->get();
+            }
 
-        return array_map(fn($r) => new self($r), $rows);
+            return array_map(fn($r) => new self($r), $rows);
+        });
     }
 
     public static function search(string $term): array {
