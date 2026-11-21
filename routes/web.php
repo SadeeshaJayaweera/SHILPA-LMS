@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AdminDashboardController;
+use App\Controllers\AITutorController;
 use App\Controllers\AnalyticsController;
 use App\Controllers\AssignmentController;
 use App\Controllers\AuthController;
@@ -172,4 +173,12 @@ return function (Router $router): void {
     $router->get('/admin/analytics', [AnalyticsController::class, 'institutionalAnalytics']);
     $router->get('/api/analytics/student/{id}', [AnalyticsController::class, 'apiStudent']);
     $router->get('/api/analytics/course/{id}', [AnalyticsController::class, 'apiCourse']);
+
+    // AI-Powered Learning Assistant Routes
+    $router->get('/ai-tutor', [AITutorController::class, 'index']);
+    $router->post('/api/ai/chat', [AITutorController::class, 'chat']);
+    $router->get('/api/ai/conversations', [AITutorController::class, 'conversations']);
+    $router->get('/api/ai/conversations/{id}', [AITutorController::class, 'showConversation']);
+    $router->post('/api/ai/summarize-lesson', [AITutorController::class, 'summarizeLesson']);
+    $router->post('/api/ai/generate-practice', [AITutorController::class, 'generatePractice']);
 };
