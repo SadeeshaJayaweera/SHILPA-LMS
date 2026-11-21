@@ -35,6 +35,13 @@ class SecurityHeaders {
     }
 
     /**
+     * Alias for getHeaders().
+     */
+    public static function headers(): array {
+        return self::getHeaders();
+    }
+
+    /**
      * Apply security headers directly to an HTTP Response object.
      */
     public static function apply(Response $response): Response {

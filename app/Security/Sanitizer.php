@@ -5,6 +5,13 @@ namespace App\Security;
 
 class Sanitizer {
     /**
+     * Alias for cleanString for convenience
+     */
+    public static function clean(string $input): string {
+        return self::cleanString($input);
+    }
+
+    /**
      * Clean and strip potential XSS vectors from HTML/text.
      */
     public static function cleanString(string $input): string {
