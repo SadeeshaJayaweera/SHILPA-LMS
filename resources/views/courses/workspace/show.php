@@ -35,6 +35,14 @@ ob_start();
                     <?= component('icon', ['name' => 'clock', 'size' => 16]) ?>
                     <span>Est. Duration: <strong><?= $totalMinutes ?> Minutes</strong></span>
                 </div>
+                <a href="/courses/<?= (int)$course->C_ID ?>/announcements" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.625rem;">
+                    <?= component('icon', ['name' => 'bell', 'size' => 14]) ?>
+                    <span>Announcements</span>
+                </a>
+                <a href="/courses/<?= (int)$course->C_ID ?>/discussions" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.625rem;">
+                    <?= component('icon', ['name' => 'message-square', 'size' => 14]) ?>
+                    <span>Q&amp;A Forum</span>
+                </a>
             </div>
         </div>
 
