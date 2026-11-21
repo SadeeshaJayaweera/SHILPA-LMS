@@ -22,8 +22,11 @@ $conn = getDbConnect();
 <body>
   <div class="container">
   
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-      <a href="/workspace" class="btn btn-outline-primary">Launch Modern Workspace Console</a>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+      <div style="display: flex; gap: 0.5rem;">
+        <a href="/admin/dashboard" class="btn btn-primary">Modern Admin Cockpit</a>
+        <a href="/admin/users" class="btn btn-outline-primary">User Directory</a>
+      </div>
       <a href="/logout" class="btn btn-danger">Log Out</a>
     </div>
     <div class="admin-header">
