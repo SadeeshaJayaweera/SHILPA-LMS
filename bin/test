@@ -34,6 +34,7 @@ $testClasses = [
     \Tests\Feature\GradingFeedbackAndResultsTest::class,
     \Tests\Feature\AnnouncementsDiscussionsAndMessagingTest::class,
     \Tests\Feature\NotificationCenterAndEmailTest::class,
+    \Tests\Feature\LearningAnalyticsAndPerformanceInsightsTest::class,
 ];
 
 $totalTests = 0;

@@ -136,6 +136,11 @@ ob_start();
                                             </button>
                                         </form>
 
+                                        <a href="/faculty/courses/<?= (int)$c->C_ID ?>/analytics" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+                                            <?= component('icon', ['name' => 'bar-chart', 'size' => 12]) ?>
+                                            <span>Analytics</span>
+                                        </a>
+
                                         <a href="/courses/<?= (int)$c->C_ID ?>/announcements" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
                                             <?= component('icon', ['name' => 'bell', 'size' => 12]) ?>
                                             <span>Notices</span>
