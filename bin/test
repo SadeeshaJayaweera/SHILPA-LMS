@@ -35,6 +35,7 @@ $testClasses = [
     \Tests\Feature\AnnouncementsDiscussionsAndMessagingTest::class,
     \Tests\Feature\NotificationCenterAndEmailTest::class,
     \Tests\Feature\LearningAnalyticsAndPerformanceInsightsTest::class,
+    \Tests\Feature\AIPoweredLearningAssistantTest::class,
 ];
 
 $totalTests = 0;

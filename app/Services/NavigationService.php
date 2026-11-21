@@ -79,6 +79,12 @@ class NavigationService {
                     'badge' => null,
                 ],
                 [
+                    'label' => 'AI Learning Tutor',
+                    'url' => '/ai-tutor',
+                    'icon' => 'zap',
+                    'badge' => 'AI',
+                ],
+                [
                     'label' => 'Resources Library',
                     'url' => '/resources',
                     'icon' => 'folder',
