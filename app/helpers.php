@@ -111,3 +111,13 @@ if (!function_exists('trans')) {
         return \App\Services\LocalizationService::trans($key, $replace, $locale);
     }
 }
+
+if (!function_exists('cache')) {
+    function cache(?string $key = null, mixed $default = null): mixed {
+        $store = \App\Cache\CacheManager::store();
+        if ($key === null) {
+            return $store;
+        }
+        return $store->get($key, $default);
+    }
+}
