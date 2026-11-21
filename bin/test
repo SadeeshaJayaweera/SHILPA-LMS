@@ -42,6 +42,7 @@ $testClasses = [
     \Tests\Feature\AdvancedPerformanceAndCachingTest::class,
     \Tests\Feature\BackgroundProcessingAndStorageTest::class,
     \Tests\Feature\ComprehensiveSecurityAndLoadTestingTest::class,
+    \Tests\Feature\ProductionDeploymentAcceptanceTest::class,
 ];
 
 $totalTests = 0;

@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  # PHP-FPM Application Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shilpa_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    env_file:
+      - .env
+    volumes:
+      - .:/var/www/html
+      - storage_data:/var/www/html/storage
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - shilpa_network
+
+  # Nginx Web Reverse Proxy
+  web:
+    image: nginx:1.25-alpine
+    container_name: shilpa_web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html:ro
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - shilpa_network
+
+  # MySQL Database Service
+  db:
+    image: mysql:8.0
+    container_name: shilpa_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-secret}
+      MYSQL_DATABASE: ${DB_DATABASE:-shilpa}
+      MYSQL_USER: ${DB_USERNAME:-shilpa_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - shilpa_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Redis Cache & Queue Backend
+  redis:
+    image: redis:7-alpine
+    container_name: shilpa_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - shilpa_network
+
+  # Background Queue Worker
+  queue-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shilpa_queue_worker
+    restart: always
+    working_dir: /var/www/html
+    command: ["php", "bin/queue-worker", "--sleep=2", "--max-jobs=1000"]
+    env_file:
+      - .env
+    depends_on:
+      - app
+      - db
+      - redis
+    networks:
+      - shilpa_network
+
+networks:
+  shilpa_network:
+    driver: bridge
+
+volumes:
+  db_data:
+  redis_data:
+  storage_data:
