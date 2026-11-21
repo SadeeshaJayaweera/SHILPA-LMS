@@ -22,8 +22,10 @@ $conn = getDbConnect();
 <body>
   <div class="container">
   
-  
-<a href="login/logout.php"><button class="btn btn-danger mt-2 ">Log Out</button></a>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+      <a href="/workspace" class="btn btn-outline-primary">Launch Modern Workspace Console</a>
+      <a href="/logout" class="btn btn-danger">Log Out</a>
+    </div>
     <div class="admin-header">
       <p>Welcome To Admin Panel</p>
       
