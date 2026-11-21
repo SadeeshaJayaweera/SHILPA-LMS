@@ -17,6 +17,7 @@ use App\Controllers\GradebookController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
 use App\Controllers\NotificationController;
+use App\Controllers\PreferencesController;
 use App\Controllers\ProfileController;
 use App\Controllers\ProgressTrackingController;
 use App\Controllers\QuizController;
@@ -196,4 +197,10 @@ return function (Router $router): void {
     $router->get('/search', [SearchController::class, 'index']);
     $router->get('/api/search', [SearchController::class, 'apiSearch']);
     $router->get('/api/commands', [SearchController::class, 'commands']);
+
+    // Accessibility, Internationalization & Theme Preferences Routes
+    $router->get('/preferences', [PreferencesController::class, 'index']);
+    $router->post('/preferences/theme', [PreferencesController::class, 'setTheme']);
+    $router->post('/preferences/locale', [PreferencesController::class, 'setLocale']);
+    $router->post('/api/preferences', [PreferencesController::class, 'apiUpdate']);
 };

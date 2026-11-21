@@ -99,3 +99,15 @@ if (!function_exists('can')) {
         return \App\Security\Gate::allows($ability, null, ...$args);
     }
 }
+
+if (!function_exists('__')) {
+    function __(string $key, array $replace = [], ?string $locale = null): string {
+        return \App\Services\LocalizationService::trans($key, $replace, $locale);
+    }
+}
+
+if (!function_exists('trans')) {
+    function trans(string $key, array $replace = [], ?string $locale = null): string {
+        return \App\Services\LocalizationService::trans($key, $replace, $locale);
+    }
+}
