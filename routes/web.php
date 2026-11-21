@@ -5,6 +5,7 @@ use App\Controllers\AdminDashboardController;
 use App\Controllers\AuthController;
 use App\Controllers\CourseDiscoveryController;
 use App\Controllers\CourseManagementController;
+use App\Controllers\CourseWorkspaceController;
 use App\Controllers\EnrollmentController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
@@ -17,6 +18,8 @@ return function (Router $router): void {
     $router->get('/', [HomeController::class, 'index']);
     $router->get('/courses', [CourseDiscoveryController::class, 'index']);
     $router->get('/courses/{id}', [CourseDiscoveryController::class, 'show']);
+    $router->get('/courses/{id}/workspace', [CourseWorkspaceController::class, 'show']);
+    $router->get('/courses/{courseId}/learn/{lessonId}', [CourseWorkspaceController::class, 'learn']);
     $router->get('/workspace', [WorkspaceController::class, 'index']);
     $router->get('/student/dashboard', [StudentDashboardController::class, 'index']);
     $router->get('/dashboard', [StudentDashboardController::class, 'index']);
