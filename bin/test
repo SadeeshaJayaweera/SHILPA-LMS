@@ -40,6 +40,7 @@ $testClasses = [
     \Tests\Feature\AdvancedSearchAndCommandInterfaceTest::class,
     \Tests\Feature\AccessibilityI18nAndThemesTest::class,
     \Tests\Feature\AdvancedPerformanceAndCachingTest::class,
+    \Tests\Feature\BackgroundProcessingAndStorageTest::class,
 ];
 
 $totalTests = 0;

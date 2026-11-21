@@ -21,6 +21,7 @@ use App\Controllers\PerformanceController;
 use App\Controllers\PreferencesController;
 use App\Controllers\ProfileController;
 use App\Controllers\ProgressTrackingController;
+use App\Controllers\QueueMonitoringController;
 use App\Controllers\QuizController;
 use App\Controllers\ResourceManagementController;
 use App\Controllers\SearchController;
@@ -209,4 +210,9 @@ return function (Router $router): void {
     $router->get('/admin/performance', [PerformanceController::class, 'adminMetrics']);
     $router->post('/admin/cache/flush', [PerformanceController::class, 'flushCache']);
     $router->get('/api/performance/metrics', [PerformanceController::class, 'apiMetrics']);
+
+    // Background Queue & Worker Monitoring Routes
+    $router->get('/admin/queues', [QueueMonitoringController::class, 'index']);
+    $router->post('/admin/queues/retry/{id}', [QueueMonitoringController::class, 'retry']);
+    $router->post('/admin/queues/clear-failed', [QueueMonitoringController::class, 'clearFailed']);
 };
