@@ -5,6 +5,7 @@ use App\Controllers\AdminDashboardController;
 use App\Controllers\AuthController;
 use App\Controllers\CourseDiscoveryController;
 use App\Controllers\CourseManagementController;
+use App\Controllers\EnrollmentController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
 use App\Controllers\ProfileController;
@@ -73,4 +74,10 @@ return function (Router $router): void {
     $router->post('/faculty/courses/{id}/edit', [CourseManagementController::class, 'update']);
     $router->post('/faculty/courses/{id}/delete', [CourseManagementController::class, 'destroy']);
     $router->post('/faculty/courses/{id}/publish', [CourseManagementController::class, 'publish']);
+
+    // Course Enrollment and Access Control Routes
+    $router->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);
+    $router->post('/courses/{id}/drop', [EnrollmentController::class, 'drop']);
+    $router->get('/faculty/courses/{id}/roster', [EnrollmentController::class, 'roster']);
+    $router->post('/faculty/enrollments/{id}/status', [EnrollmentController::class, 'updateStatus']);
 };
