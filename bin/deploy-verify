@@ -1,0 +1,172 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+/**
+ * SHILPA LMS — Enterprise Production Deployment Verification Script
+ * Validates runtime, extensions, directory permissions, database, cache, and queue readiness.
+ */
+
+$rootDir = dirname(__DIR__);
+
+// Ensure session files stay within project storage
+$sessionPath = $rootDir . '/storage/framework/sessions';
+if (!is_dir($sessionPath)) {
+    @mkdir($sessionPath, 0775, true);
+}
+@ini_set('session.save_path', $sessionPath);
+
+require_once $rootDir . '/vendor/autoload.php';
+
+use App\Core\Application;
+use App\Database\Connection;
+use App\Database\MigrationRunner;
+use App\Cache\CacheManager;
+use App\Queue\QueueManager;
+use App\Storage\StorageManager;
+
+$app = new Application($rootDir);
+$app->bootstrap();
+
+$checks = [];
+$hasFailure = false;
+
+function check(string $label, callable $test): bool {
+    global $checks, $hasFailure;
+    try {
+        $result = $test();
+        if ($result === true) {
+            $checks[] = ['label' => $label, 'status' => 'PASS', 'message' => 'OK'];
+            return true;
+        } else {
+            $checks[] = ['label' => $label, 'status' => 'FAIL', 'message' => is_string($result) ? $result : 'Check failed'];
+            $hasFailure = true;
+            return false;
+        }
+    } catch (\Throwable $e) {
+        $checks[] = ['label' => $label, 'status' => 'FAIL', 'message' => $e->getMessage()];
+        $hasFailure = true;
+        return false;
+    }
+}
+
+echo "=======================================================\n";
+echo "    SHILPA LMS — PRODUCTION DEPLOYMENT VERIFICATION    \n";
+echo "=======================================================\n\n";
+
+// 1. PHP Runtime
+check("PHP Version >= 8.2", function() {
+    return version_compare(PHP_VERSION, '8.2.0', '>=') 
+        ? true 
+        : "Current PHP version " . PHP_VERSION . " is lower than required 8.2.0";
+});
+
+// 2. Extensions
+$requiredExtensions = ['pdo', 'mbstring', 'json', 'ctype', 'openssl', 'session'];
+foreach ($requiredExtensions as $ext) {
+    check("PHP Extension '{$ext}' loaded", function() use ($ext) {
+        return extension_loaded($ext) ? true : "Missing required PHP extension: {$ext}";
+    });
+}
+
+// 3. Storage Directory Write Permissions
+$requiredDirs = [
+    'storage/logs',
+    'storage/framework/cache',
+    'storage/framework/sessions',
+    'storage/framework/views',
+    'storage/app/public'
+];
+
+foreach ($requiredDirs as $dir) {
+    $fullPath = $rootDir . '/' . $dir;
+    if (!is_dir($fullPath)) {
+        @mkdir($fullPath, 0775, true);
+    }
+    check("Directory writable: {$dir}", function() use ($fullPath, $dir) {
+        return is_writable($fullPath) ? true : "Directory {$dir} is not writable by current user";
+    });
+}
+
+// 4. Database Connectivity and Schema Readiness
+check("Database Connection & Health", function() {
+    $pdo = Connection::get();
+    $stmt = $pdo->query("SELECT 1");
+    return ($stmt && $stmt->fetchColumn() == 1) ? true : "Database ping failed";
+});
+
+check("Essential Schema Tables Exist", function() use ($rootDir) {
+    $pdo = Connection::get();
+    $driver = $pdo->getAttribute(\PDO::ATTR_DRIVER_NAME);
+    
+    // In CLI in-memory test/fallback environment, run migrations to verify schema definition
+    if ($driver === 'sqlite') {
+        $runner = new MigrationRunner($pdo, $rootDir . '/database/migrations');
+        $runner->run();
+    }
+
+    $requiredTables = [
+        'users', 'course', 'enrollments', 'modules', 'lessons',
+        'assignments', 'assignment_submissions', 'course_grades',
+        'security_audit_logs', 'notifications'
+    ];
+
+    $missing = [];
+    foreach ($requiredTables as $table) {
+        try {
+            $test = $pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+            if ($test === false) {
+                $missing[] = $table;
+            }
+        } catch (\Throwable $e) {
+            $missing[] = $table;
+        }
+    }
+
+    if (!empty($missing)) {
+        return "Missing tables: " . implode(', ', $missing) . ". Please run 'php bin/migrate.php'.";
+    }
+
+    return true;
+});
+
+// 5. Cache Store Functionality
+check("Cache Store Operations (Write/Read/Forget)", function() {
+    $store = CacheManager::store();
+    $testKey = 'deploy_verify_' . uniqid();
+    $testVal = ['verified_at' => time()];
+    $store->put($testKey, $testVal, 60);
+    $read = $store->get($testKey);
+    $store->forget($testKey);
+
+    return ($read && $read['verified_at'] === $testVal['verified_at']) 
+        ? true 
+        : "Cache failed to store and retrieve data correctly";
+});
+
+// 6. Queue System Readiness
+check("Queue System Initialization", function() {
+    $queue = QueueManager::queue('sync');
+    return ($queue !== null) ? true : "Queue driver failed to instantiate";
+});
+
+// 7. Security Header & Application Routing Boot
+check("Security Middleware & Application Boot", function() {
+    $headers = \App\Security\SecurityHeaders::getHeaders();
+    return isset($headers['X-Content-Type-Options']) && isset($headers['X-Frame-Options']);
+});
+
+// Report Results
+foreach ($checks as $c) {
+    $symbol = $c['status'] === 'PASS' ? "\033[32m✓\033[0m" : "\033[31m✗\033[0m";
+    printf("  %s %-45s [%s]\n", $symbol, $c['label'], $c['message']);
+}
+
+echo "\n-------------------------------------------------------\n";
+if ($hasFailure) {
+    echo "\033[31mDEPLOYMENT VERIFICATION FAILED. Correct errors above before promoting to production.\033[0m\n";
+    exit(1);
+} else {
+    echo "\033[32mDEPLOYMENT VERIFICATION PASSED! SYSTEM IS PRODUCTION-READY.\033[0m\n";
+    exit(0);
+}

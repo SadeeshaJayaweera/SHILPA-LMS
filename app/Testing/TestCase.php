@@ -65,4 +65,32 @@ abstract class TestCase {
         $response = $this->app->handle($request);
         return new TestResponse($response);
     }
+
+    public function assertTrue(bool $condition, string $message = ''): void {
+        assert($condition === true, $message ?: 'Expected true');
+    }
+
+    public function assertFalse(bool $condition, string $message = ''): void {
+        assert($condition === false, $message ?: 'Expected false');
+    }
+
+    public function assertSame(mixed $expected, mixed $actual, string $message = ''): void {
+        assert($expected === $actual, $message ?: "Expected $expected but got $actual");
+    }
+
+    public function assertNotNull(mixed $actual, string $message = ''): void {
+        assert($actual !== null, $message ?: 'Expected not null');
+    }
+
+    public function assertFileExists(string $path, string $message = ''): void {
+        assert(file_exists($path), $message ?: "File does not exist: $path");
+    }
+
+    public function assertStringContainsString(string $needle, string $haystack, string $message = ''): void {
+        assert(str_contains($haystack, $needle), $message ?: "Expected string to contain '$needle'");
+    }
+
+    public function assertMatchesRegularExpression(string $pattern, string $string, string $message = ''): void {
+        assert(preg_match($pattern, $string) === 1, $message ?: "Expected string to match pattern '$pattern'");
+    }
 }
