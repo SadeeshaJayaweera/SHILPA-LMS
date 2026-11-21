@@ -36,6 +36,14 @@ class Request {
         return new self();
     }
 
+    public static function create(string $method = 'GET', string $uri = '/', array $parameters = [], array $cookies = [], array $server = []): self {
+        $query = strtoupper($method) === 'GET' ? $parameters : [];
+        $post = strtoupper($method) === 'POST' ? $parameters : [];
+        $server['REQUEST_METHOD'] = strtoupper($method);
+        $server['REQUEST_URI'] = $uri;
+        return new self($method, $uri, $query, $post, $cookies, $server);
+    }
+
     public function method(): string {
         return $this->method;
     }

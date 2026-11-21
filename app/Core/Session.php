@@ -76,6 +76,10 @@ class Session {
         }
     }
 
+    public function clear(): void {
+        $_SESSION = [];
+    }
+
     public function destroy(): void {
         $_SESSION = [];
         if ($this->started && session_status() === PHP_SESSION_ACTIVE) {

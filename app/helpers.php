@@ -93,3 +93,9 @@ if (!function_exists('icon')) {
         return \App\Core\Component::render('icon', $props);
     }
 }
+
+if (!function_exists('can')) {
+    function can(string $ability, mixed ...$args): bool {
+        return \App\Security\Gate::allows($ability, null, ...$args);
+    }
+}

@@ -45,4 +45,39 @@ class User extends Model {
     public function isStudent(): bool {
         return !$this->isAdmin() && !$this->isLecturer();
     }
+
+    public function can(string $ability, mixed ...$args): bool {
+        return \App\Security\Gate::allows($ability, $this, ...$args);
+    }
+
+    public function cannot(string $ability, mixed ...$args): bool {
+        return !\App\Security\Gate::allows($ability, $this, ...$args);
+    }
+
+    public function hasRole(string|array $roles): bool {
+        $roles = (array)$roles;
+        $currentRole = strtolower((string)($this->user_type ?? 'student'));
+
+        foreach ($roles as $role) {
+            $role = strtolower($role);
+            if ($currentRole === $role) {
+                return true;
+            }
+            if ($role === 'admin' && in_array($currentRole, ['a', 'm', 'admin', 'administrator', 'superadmin'], true)) {
+                return true;
+            }
+            if ($role === 'lecturer' && in_array($currentRole, ['l', 'lecturer', 'instructor', 'teacher'], true)) {
+                return true;
+            }
+            if ($role === 'student' && $this->isStudent()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function assignRole(string $role): void {
+        $this->user_type = $role;
+        $this->save();
+    }
 }
