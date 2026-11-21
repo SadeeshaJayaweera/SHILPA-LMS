@@ -136,6 +136,16 @@ ob_start();
                                             </button>
                                         </form>
 
+                                        <a href="/courses/<?= (int)$c->C_ID ?>/announcements" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+                                            <?= component('icon', ['name' => 'bell', 'size' => 12]) ?>
+                                            <span>Notices</span>
+                                        </a>
+
+                                        <a href="/courses/<?= (int)$c->C_ID ?>/discussions" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+                                            <?= component('icon', ['name' => 'message-square', 'size' => 12]) ?>
+                                            <span>Forum</span>
+                                        </a>
+
                                         <a href="/faculty/courses/<?= (int)$c->C_ID ?>/gradebook" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
                                             <?= component('icon', ['name' => 'award', 'size' => 12]) ?>
                                             <span>Gradebook</span>

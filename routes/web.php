@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Controllers\AdminDashboardController;
 use App\Controllers\AssignmentController;
 use App\Controllers\AuthController;
+use App\Controllers\CommunicationController;
 use App\Controllers\CourseDiscoveryController;
 use App\Controllers\CourseManagementController;
 use App\Controllers\CourseWorkspaceController;
@@ -135,4 +136,23 @@ return function (Router $router): void {
     $router->post('/courses/{id}/drop', [EnrollmentController::class, 'drop']);
     $router->get('/faculty/courses/{id}/roster', [EnrollmentController::class, 'roster']);
     $router->post('/faculty/enrollments/{id}/status', [EnrollmentController::class, 'updateStatus']);
+
+    // Announcements, Discussions and Direct Messaging Routes
+    $router->get('/announcements', [CommunicationController::class, 'globalAnnouncements']);
+    $router->get('/courses/{id}/announcements', [CommunicationController::class, 'indexAnnouncements']);
+    $router->post('/faculty/courses/{id}/announcements', [CommunicationController::class, 'storeAnnouncement']);
+    $router->post('/faculty/announcements/{id}/delete', [CommunicationController::class, 'deleteAnnouncement']);
+
+    $router->get('/discussions', [CommunicationController::class, 'globalDiscussions']);
+    $router->get('/courses/{id}/discussions', [CommunicationController::class, 'indexDiscussions']);
+    $router->post('/courses/{id}/discussions', [CommunicationController::class, 'storeDiscussion']);
+    $router->get('/courses/{courseId}/discussions/{threadId}', [CommunicationController::class, 'showDiscussion']);
+    $router->post('/courses/{courseId}/discussions/{threadId}/reply', [CommunicationController::class, 'replyDiscussion']);
+    $router->post('/faculty/discussions/{id}/pin', [CommunicationController::class, 'togglePinDiscussion']);
+    $router->post('/faculty/discussions/{id}/lock', [CommunicationController::class, 'toggleLockDiscussion']);
+
+    $router->get('/messages', [CommunicationController::class, 'indexMessages']);
+    $router->get('/messages/{userId}', [CommunicationController::class, 'showConversation']);
+    $router->post('/messages/send', [CommunicationController::class, 'sendMessage']);
+    $router->get('/api/messages/unread-count', [CommunicationController::class, 'unreadCount']);
 };
