@@ -13,6 +13,10 @@ class TestResponse {
         $this->response = $response;
     }
 
+    public function getStatusCode(): int {
+        return $this->response->getStatusCode();
+    }
+
     public function assertStatus(int $expectedStatus): self {
         $actual = $this->response->getStatusCode();
         if ($actual !== $expectedStatus) {

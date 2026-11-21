@@ -6,6 +6,7 @@ use App\Controllers\AuthController;
 use App\Controllers\CourseDiscoveryController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
+use App\Controllers\ProfileController;
 use App\Controllers\StudentDashboardController;
 use App\Controllers\WorkspaceController;
 use App\Core\Router;
@@ -52,4 +53,12 @@ return function (Router $router): void {
     $router->post('/onboarding', [AuthController::class, 'completeOnboarding']);
     $router->get('/logout', [AuthController::class, 'logout']);
     $router->post('/logout', [AuthController::class, 'logout']);
+
+    // Profile & Account Management Routes
+    $router->get('/profile', [ProfileController::class, 'index']);
+    $router->post('/profile', [ProfileController::class, 'update']);
+    $router->post('/profile/preferences', [ProfileController::class, 'updatePreferences']);
+    $router->post('/profile/password', [ProfileController::class, 'updatePassword']);
+    $router->post('/profile/sessions/terminate', [ProfileController::class, 'terminateSession']);
+    $router->post('/profile/sessions/terminate-others', [ProfileController::class, 'terminateOtherSessions']);
 };
