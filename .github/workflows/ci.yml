@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, 'feature/**', 'security/**', 'hotfix/**' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.2', '8.3']
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP Runtime
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, pdo, sqlite3, pdo_sqlite, gd, json, openssl
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Generate Autoloader
+        run: composer dump-autoload --optimize
+
+      - name: Run Code Quality Checks
+        run: php bin/code_quality.php
+
+      - name: Run Baseline PHP Syntax Verification
+        run: php bin/verify_baseline.php
+
+      - name: Run Database Migrations
+        run: php bin/migrate.php
+
+      - name: Execute Automated Test Suite
+        run: php bin/test

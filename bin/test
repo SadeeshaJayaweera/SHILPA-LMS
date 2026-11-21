@@ -1,0 +1,71 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+echo "\033[1;36m=========================================\033[0m\n";
+echo "\033[1;36m    SHILPA LMS AUTOMATED TEST RUNNER     \033[0m\n";
+echo "\033[1;36m=========================================\033[0m\n\n";
+
+$testClasses = [
+    \Tests\Unit\UserTest::class,
+    \Tests\Unit\CourseTest::class,
+    \Tests\Feature\HealthcheckTest::class,
+    \Tests\Feature\LegacyWorkflowTest::class,
+];
+
+$totalTests = 0;
+$passedTests = 0;
+$failedTests = 0;
+$startTime = microtime(true);
+
+foreach ($testClasses as $testClass) {
+    $shortName = substr(strrchr($testClass, '\\') ?: '', 1);
+    echo "\033[1;33mTesting $shortName...\033[0m\n";
+
+    $reflector = new ReflectionClass($testClass);
+    $methods = array_filter(
+        $reflector->getMethods(ReflectionMethod::IS_PUBLIC),
+        fn($m) => str_starts_with($m->getName(), 'test')
+    );
+
+    foreach ($methods as $method) {
+        $totalTests++;
+        $methodName = $method->getName();
+
+        /** @var \App\Testing\TestCase $instance */
+        $instance = new $testClass();
+        $instance->setUp();
+
+        try {
+            $instance->$methodName();
+            $passedTests++;
+            echo "  \033[32m✓\033[0m $methodName\n";
+        } catch (\Throwable $e) {
+            $failedTests++;
+            echo "  \033[31m✗\033[0m $methodName - " . $e->getMessage() . "\n";
+            echo "    \033[90m" . $e->getFile() . ':' . $e->getLine() . "\033[0m\n";
+        } finally {
+            $instance->tearDown();
+        }
+    }
+    echo "\n";
+}
+
+$elapsed = round(microtime(true) - $startTime, 4);
+
+echo "\033[1;36m-----------------------------------------\033[0m\n";
+echo "Total Tests:  $totalTests\n";
+echo "Passed:       \033[32m$passedTests\033[0m\n";
+echo "Failed:       " . ($failedTests > 0 ? "\033[31m$failedTests\033[0m" : "0") . "\n";
+echo "Time Taken:   {$elapsed}s\n";
+echo "\033[1;36m-----------------------------------------\033[0m\n";
+
+if ($failedTests > 0) {
+    echo "\033[1;31mFAILED (failures=$failedTests)\033[0m\n";
+    exit(1);
+}
+
+echo "\033[1;32mALL TESTS PASSED SUCCESSFULLY! (OK)\033[0m\n";
+exit(0);
