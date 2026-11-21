@@ -80,3 +80,16 @@ if (!function_exists('url')) {
         return $path === '' ? $baseUrl : "$baseUrl/$path";
     }
 }
+
+if (!function_exists('component')) {
+    function component(string $name, array $props = []): string {
+        return \App\Core\Component::render($name, $props);
+    }
+}
+
+if (!function_exists('icon')) {
+    function icon(string $name, array $props = []): string {
+        $props['name'] = $name;
+        return \App\Core\Component::render('icon', $props);
+    }
+}
