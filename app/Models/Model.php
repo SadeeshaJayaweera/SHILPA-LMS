@@ -28,6 +28,10 @@ abstract class Model {
         return array_map(fn($row) => new static($row), $rows);
     }
 
+    public static function count(): int {
+        return static::query()->count();
+    }
+
     public static function find(mixed $id): ?static {
         $instance = new static();
         $row = static::query()->where($instance->primaryKey, $id)->first();

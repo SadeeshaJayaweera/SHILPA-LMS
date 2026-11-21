@@ -11,6 +11,7 @@ use App\Controllers\CourseDiscoveryController;
 use App\Controllers\CourseManagementController;
 use App\Controllers\CourseWorkspaceController;
 use App\Controllers\CurriculumBuilderController;
+use App\Controllers\DiscoveryAndRecommendationController;
 use App\Controllers\EnrollmentController;
 use App\Controllers\GradebookController;
 use App\Controllers\HomeController;
@@ -27,6 +28,7 @@ use App\Core\Router;
 return function (Router $router): void {
     $router->get('/', [HomeController::class, 'index']);
     $router->get('/courses', [CourseDiscoveryController::class, 'index']);
+    $router->get('/courses/recommended', [DiscoveryAndRecommendationController::class, 'recommendations']);
     $router->get('/courses/{id}', [CourseDiscoveryController::class, 'show']);
     $router->get('/courses/{id}/workspace', [CourseWorkspaceController::class, 'show']);
     $router->get('/courses/{courseId}/learn/{lessonId}', [CourseWorkspaceController::class, 'learn']);
@@ -181,4 +183,11 @@ return function (Router $router): void {
     $router->get('/api/ai/conversations/{id}', [AITutorController::class, 'showConversation']);
     $router->post('/api/ai/summarize-lesson', [AITutorController::class, 'summarizeLesson']);
     $router->post('/api/ai/generate-practice', [AITutorController::class, 'generatePractice']);
+
+    // Intelligent Course Discovery & Recommendations Routes
+    $router->get('/pathways', [DiscoveryAndRecommendationController::class, 'pathways']);
+    $router->get('/pathways/{slug}', [DiscoveryAndRecommendationController::class, 'pathwayDetail']);
+    $router->post('/courses/{id}/bookmark', [DiscoveryAndRecommendationController::class, 'toggleBookmark']);
+    $router->get('/my-bookmarks', [DiscoveryAndRecommendationController::class, 'bookmarks']);
+    $router->get('/api/courses/recommendations', [DiscoveryAndRecommendationController::class, 'apiRecommendations']);
 };
