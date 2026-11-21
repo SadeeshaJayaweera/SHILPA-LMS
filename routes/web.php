@@ -6,6 +6,7 @@ use App\Controllers\AuthController;
 use App\Controllers\CourseDiscoveryController;
 use App\Controllers\CourseManagementController;
 use App\Controllers\CourseWorkspaceController;
+use App\Controllers\CurriculumBuilderController;
 use App\Controllers\EnrollmentController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
@@ -77,6 +78,18 @@ return function (Router $router): void {
     $router->post('/faculty/courses/{id}/edit', [CourseManagementController::class, 'update']);
     $router->post('/faculty/courses/{id}/delete', [CourseManagementController::class, 'destroy']);
     $router->post('/faculty/courses/{id}/publish', [CourseManagementController::class, 'publish']);
+
+    // Curriculum & Lesson Builder Routes (Faculty & Admin)
+    $router->get('/faculty/courses/{id}/builder', [CurriculumBuilderController::class, 'index']);
+    $router->post('/faculty/courses/{id}/modules', [CurriculumBuilderController::class, 'storeModule']);
+    $router->post('/faculty/courses/{courseId}/modules/{moduleId}', [CurriculumBuilderController::class, 'updateModule']);
+    $router->post('/faculty/courses/{courseId}/modules/{moduleId}/delete', [CurriculumBuilderController::class, 'deleteModule']);
+    $router->post('/faculty/courses/{id}/modules/reorder', [CurriculumBuilderController::class, 'reorderModules']);
+    $router->post('/faculty/courses/{courseId}/modules/{moduleId}/lessons', [CurriculumBuilderController::class, 'storeLesson']);
+    $router->post('/faculty/courses/{courseId}/lessons/{lessonId}', [CurriculumBuilderController::class, 'updateLesson']);
+    $router->post('/faculty/courses/{courseId}/lessons/{lessonId}/delete', [CurriculumBuilderController::class, 'deleteLesson']);
+    $router->post('/faculty/courses/{courseId}/modules/{moduleId}/lessons/reorder', [CurriculumBuilderController::class, 'reorderLessons']);
+    $router->post('/faculty/courses/{courseId}/lessons/{lessonId}/blocks', [CurriculumBuilderController::class, 'storeBlock']);
 
     // Course Enrollment and Access Control Routes
     $router->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);
