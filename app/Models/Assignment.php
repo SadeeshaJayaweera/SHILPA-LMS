@@ -48,4 +48,8 @@ class Assignment extends Model {
         }
         return strtotime((string)$this->due_at) < time();
     }
+
+    public function course(): ?Course {
+        return Course::find((int)$this->course_id);
+    }
 }
