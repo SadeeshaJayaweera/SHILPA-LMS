@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Controllers\AdminDashboardController;
 use App\Controllers\AuthController;
 use App\Controllers\CourseDiscoveryController;
+use App\Controllers\CourseManagementController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
 use App\Controllers\ProfileController;
@@ -63,4 +64,13 @@ return function (Router $router): void {
     $router->post('/profile/password', [ProfileController::class, 'updatePassword']);
     $router->post('/profile/sessions/terminate', [ProfileController::class, 'terminateSession']);
     $router->post('/profile/sessions/terminate-others', [ProfileController::class, 'terminateOtherSessions']);
+
+    // Advanced Course Management Routes (Faculty & Admin)
+    $router->get('/faculty/courses', [CourseManagementController::class, 'index']);
+    $router->get('/faculty/courses/create', [CourseManagementController::class, 'create']);
+    $router->post('/faculty/courses', [CourseManagementController::class, 'store']);
+    $router->get('/faculty/courses/{id}/edit', [CourseManagementController::class, 'edit']);
+    $router->post('/faculty/courses/{id}/edit', [CourseManagementController::class, 'update']);
+    $router->post('/faculty/courses/{id}/delete', [CourseManagementController::class, 'destroy']);
+    $router->post('/faculty/courses/{id}/publish', [CourseManagementController::class, 'publish']);
 };

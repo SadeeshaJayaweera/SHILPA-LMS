@@ -23,6 +23,7 @@ $testClasses = [
     \Tests\Feature\RoleBasedAccessControlTest::class,
     \Tests\Feature\UserProfileAndAccountTest::class,
     \Tests\Feature\SecurityAuditingAndHardeningTest::class,
+    \Tests\Feature\AdvancedCourseManagementTest::class,
 ];
 
 $totalTests = 0;
