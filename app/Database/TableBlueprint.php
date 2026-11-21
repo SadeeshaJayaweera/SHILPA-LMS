@@ -59,6 +59,16 @@ class TableBlueprint {
         return $this;
     }
 
+    public function primary(string|array $columns): self {
+        $cols = is_array($columns) ? $columns : [$columns];
+        $this->indexes[] = "PRIMARY KEY (" . implode(', ', array_map(fn($c) => "`$c`", $cols)) . ")";
+        return $this;
+    }
+
+    public function primaryKey(string|array $columns): self {
+        return $this->primary($columns);
+    }
+
     public function unique(string|array $columns): self {
         $cols = is_array($columns) ? $columns : [$columns];
         $this->indexes[] = "UNIQUE (" . implode(', ', array_map(fn($c) => "`$c`", $cols)) . ")";

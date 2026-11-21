@@ -21,6 +21,7 @@ $testClasses = [
     \Tests\Feature\LecturerAndAdminDashboardTest::class,
     \Tests\Feature\SecureAuthenticationTest::class,
     \Tests\Feature\RoleBasedAccessControlTest::class,
+    \Tests\Feature\UserProfileAndAccountTest::class,
 ];
 
 $totalTests = 0;

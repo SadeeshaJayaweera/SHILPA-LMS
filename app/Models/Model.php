@@ -71,10 +71,16 @@ abstract class Model {
     }
 
     public function __get(string $name): mixed {
+        if ($name === 'id' && !isset($this->attributes['id']) && isset($this->attributes[$this->primaryKey])) {
+            return $this->attributes[$this->primaryKey];
+        }
         return $this->attributes[$name] ?? null;
     }
 
     public function __set(string $name, mixed $value): void {
+        if ($name === 'id' && $this->primaryKey !== 'id') {
+            $this->attributes[$this->primaryKey] = $value;
+        }
         $this->attributes[$name] = $value;
     }
 
