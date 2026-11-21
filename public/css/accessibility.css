@@ -1,0 +1,114 @@
+/**
+ * SHILPA LMS — WCAG 2.1 AA Accessibility & High Contrast Styles
+ */
+
+/* Focus Ring for Keyboard Navigation */
+*:focus-visible {
+    outline: 2px solid var(--primary, #6366f1) !important;
+    outline-offset: 2px !important;
+}
+
+/* Skip-to-Content Link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    background: var(--primary, #6366f1);
+    color: #ffffff !important;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0 0 8px 8px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    z-index: 99999;
+    text-decoration: none;
+    transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Screen Reader Only Utilities */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border-width: 0 !important;
+}
+
+.sr-only-focusable:focus {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    padding: inherit !important;
+    margin: inherit !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+}
+
+/* High Contrast Mode (WCAG AAA Compliance) */
+[data-theme="high-contrast"] {
+    --bg-color: #000000;
+    --surface: #0a0a0a;
+    --surface-secondary: #171717;
+    --text-color: #ffffff;
+    --text-muted: #e5e5e5;
+    --border-color: #ffffff;
+    --primary: #ffd600;
+    --primary-hover: #ffea00;
+    --primary-text: #000000;
+    --primary-50: #262600;
+    --primary-700: #ffd600;
+    --success: #00e676;
+    --success-text: #00e676;
+    --danger: #ff1744;
+    --warning: #ffab00;
+}
+
+[data-theme="high-contrast"] .btn-primary {
+    background: #ffd600 !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+    font-weight: 800 !important;
+}
+
+[data-theme="high-contrast"] .card {
+    border: 2px solid #ffffff !important;
+}
+
+/* Reduced Motion Mode */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}
+
+/* Text Size Scaling */
+[data-text-size="large"] {
+    font-size: 112.5%;
+}
+
+[data-text-size="xlarge"] {
+    font-size: 125%;
+}

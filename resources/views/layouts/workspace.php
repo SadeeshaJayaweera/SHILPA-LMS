@@ -5,7 +5,7 @@ $userRole = session()->get('user_role', 'student');
 $navSections = NavigationService::getNavigationForUser();
 ?>
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="<?= e(\App\Services\LocalizationService::getLocale()) ?>" data-theme="<?= e(\App\Services\ThemeService::getTheme()) ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +15,12 @@ $navSections = NavigationService::getNavigationForUser();
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/design-system.css">
     <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/accessibility.css">
 </head>
 <body class="workspace-shell">
+
+    <!-- Accessible Skip to Content Link (WCAG 2.1 AA) -->
+    <a href="#main-content" class="skip-link sr-only sr-only-focusable">Skip to main content</a>
 
     <!-- Mobile Drawer Overlay Backdrop -->
     <div class="mobile-drawer-overlay" id="mobile-drawer-overlay" aria-hidden="true"></div>
@@ -82,6 +86,10 @@ $navSections = NavigationService::getNavigationForUser();
             </div>
 
             <div class="header-right">
+                <a href="/preferences" class="header-action-btn" title="Language & Accessibility Preferences" aria-label="Language & Accessibility Preferences" style="text-decoration: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid var(--border-color);">
+                    <span><?= strtoupper(\App\Services\LocalizationService::getLocale()) ?></span>
+                </a>
+
                 <button type="button" class="header-action-btn" onclick="toggleTheme()" aria-label="Toggle visual theme">
                     <span data-theme-icon>🌙</span>
                 </button>

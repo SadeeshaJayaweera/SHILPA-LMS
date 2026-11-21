@@ -89,6 +89,11 @@ class Request {
         return $all[$key] ?? $default;
     }
 
+    public function has(string $key): bool {
+        $all = $this->all();
+        return array_key_exists($key, $all) && $all[$key] !== null;
+    }
+
     public function all(): array {
         return array_merge($this->query, $this->post, $this->json());
     }
@@ -117,6 +122,16 @@ class Request {
     public function header(string $key, ?string $default = null): ?string {
         $key = strtolower(str_replace('_', '-', $key));
         return $this->headers[$key] ?? $default;
+    }
+
+    public function isJson(): bool {
+        $contentType = (string)$this->header('Content-Type', '');
+        return str_contains($contentType, '/json') || str_contains($contentType, '+json');
+    }
+
+    public function expectsJson(): bool {
+        $accept = (string)$this->header('Accept', '');
+        return str_contains($accept, '/json') || str_contains($accept, '+json') || $this->isJson();
     }
 
     public function bearerToken(): ?string {
