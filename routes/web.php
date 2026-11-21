@@ -13,6 +13,7 @@ use App\Controllers\EnrollmentController;
 use App\Controllers\GradebookController;
 use App\Controllers\HomeController;
 use App\Controllers\LecturerDashboardController;
+use App\Controllers\NotificationController;
 use App\Controllers\ProfileController;
 use App\Controllers\ProgressTrackingController;
 use App\Controllers\QuizController;
@@ -155,4 +156,12 @@ return function (Router $router): void {
     $router->get('/messages/{userId}', [CommunicationController::class, 'showConversation']);
     $router->post('/messages/send', [CommunicationController::class, 'sendMessage']);
     $router->get('/api/messages/unread-count', [CommunicationController::class, 'unreadCount']);
+
+    // Notification Center and Email Preferences Routes
+    $router->get('/notifications', [NotificationController::class, 'index']);
+    $router->get('/api/notifications', [NotificationController::class, 'apiIndex']);
+    $router->post('/notifications/{id}/read', [NotificationController::class, 'markRead']);
+    $router->post('/notifications/read-all', [NotificationController::class, 'markAllRead']);
+    $router->get('/notifications/settings', [NotificationController::class, 'settings']);
+    $router->post('/notifications/settings', [NotificationController::class, 'updateSettings']);
 };
