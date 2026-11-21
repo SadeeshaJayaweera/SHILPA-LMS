@@ -59,4 +59,13 @@ class Response {
     public function getHeaders(): array {
         return $this->headers;
     }
+
+    public function getHeader(string $key): ?string {
+        foreach ($this->headers as $k => $v) {
+            if (strcasecmp($k, $key) === 0) {
+                return (string)$v;
+            }
+        }
+        return null;
+    }
 }

@@ -1,3 +1,10 @@
+<?php
+// Modernized forward-compatibility bridge for register.php
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    header("Location: /register");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
