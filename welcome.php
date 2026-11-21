@@ -248,8 +248,9 @@ if (mysqli_num_rows($result) == 1) {
 
       </div>
       <div class="user-menu-parallelogram-wrapper">
-        <nav class="user-cta" aria-label="Account">
-          <a class="btn btn-brand user-link mx-1 register-link" href="login/logout.php" __tracked="true">
+        <nav class="user-cta" aria-label="Account" style="display: flex; align-items: center; gap: 0.5rem;">
+          <a class="btn btn-primary user-link mx-1" href="/workspace" style="text-decoration: none;">Modern Workspace</a>
+          <a class="btn btn-brand user-link mx-1 register-link" href="/logout" __tracked="true">
             <div class="register-link-text">
               Log Out
             </div>

@@ -8,9 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/navigation.css">
     <style>
         .app-shell { display: flex; flex-direction: column; min-height: 100vh; }
-        .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface-glass); backdrop-filter: blur(12px); }
+        .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
         .nav-container { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
         .brand-link { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text-primary); font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; }
         .brand-avatar { width: 2.25rem; height: 2.25rem; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--shilpa-blue-400) 0%, var(--shilpa-blue-600) 100%); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.125rem; }
@@ -24,6 +25,9 @@
         .footer-links { display: flex; gap: 1.5rem; }
         .footer-links a { color: var(--text-muted); text-decoration: none; }
         .footer-links a:hover { color: var(--text-primary); }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+        }
     </style>
 </head>
 <body class="app-shell">
@@ -35,9 +39,8 @@
             </a>
 
             <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
-                <li class="nav-item"><a href="/all_courses.php">Explore Courses</a></li>
-                <li class="nav-item"><a href="/welcome.php">Student Workspace</a></li>
-                <li class="nav-item"><a href="/admin.php">Administration</a></li>
+                <li class="nav-item"><a href="/courses">Explore Courses</a></li>
+                <li class="nav-item"><a href="/workspace">Workspace</a></li>
                 <li class="nav-item"><a href="/design-system">Design System</a></li>
                 <li class="nav-item"><a href="/dev/developers.html">Developers</a></li>
             </nav>
@@ -47,8 +50,12 @@
                     <span data-theme-icon>🌙</span>
                     <span data-theme-label style="display: none;">Dark Mode</span>
                 </button>
-                <a href="/login/login.php" class="btn btn-secondary btn-sm">Sign In</a>
-                <a href="/login/register.php" class="btn btn-primary btn-sm">Get Started</a>
+                <?php if (session()->has('user')): ?>
+                    <a href="/workspace" class="btn btn-primary btn-sm">Enter Workspace</a>
+                <?php else: ?>
+                    <a href="/login" class="btn btn-secondary btn-sm">Sign In</a>
+                    <a href="/register" class="btn btn-primary btn-sm">Get Started</a>
+                <?php endif; ?>
             </div>
         </div>
     </header>
