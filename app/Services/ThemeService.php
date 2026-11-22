@@ -28,7 +28,7 @@ class ThemeService {
             }
         }
 
-        return 'dark';
+        return 'light';
     }
 
     /**

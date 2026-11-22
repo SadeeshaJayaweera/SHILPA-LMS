@@ -24,40 +24,42 @@
 
 ## 🌟 Executive Overview
 
-**SHILPA LMS** is an enterprise-grade educational SaaS platform completely transformed through a meticulous, 34-phase modernization program. It bridges deep academic workflows with the sleek, responsive, and intuitive interaction standards of premier modern platforms such as Linear, Notion, Vercel, and Stripe.
+**SHILPA LMS** (ශිල්ප) is a authentic, realistic, human-designed Learning Management System engineered to democratize university-grade technical education. Rooted in Sri Lankan open higher education (NSBM Green University, University of Moratuwa, DP Education), it preserves its unique visual soul—the handwritten Sinhala script `ශිල්ප` identity, bilingual English and Sinhala (`සිංහල`) learning pathways, and warm student-centered storytelling—while powering everything under the hood with an enterprise-grade PHP 8.2+ MVC architecture.
 
-With zero bloated third-party monoliths, SHILPA LMS is driven by a clean, high-performance PHP 8.2+ MVC engine, hardened against the OWASP ASVS Top 10, featuring cryptographically chained audit trails, role-based access control (RBAC), multi-factor authentication, background asynchronous job queues, faceted course discovery, and an AI-powered conversational tutor.
+Behind its friendly, authentic interface lies a battle-hardened engine: zero bloated third-party monoliths, 152 automated tests with 100% pass rates, cryptographic HMAC-SHA256 audit chaining, role-based access control (RBAC), multi-factor authentication, background asynchronous job queues, and an AI-powered conversational tutor.
 
 ---
 
 ## 📸 Visual Application Tour
 
-### 1. Dynamic Public Landing & Educational Portal
-A high-converting public storefront featuring an ambient dark canvas, modern gradient typography, live platform statistics, and an interactive macOS-styled product workspace preview showcasing live code execution, test verification, and curriculum drawers.
+### 1. Authentic Public Landing & Learning Portal
+An inviting, realistic educational portal crafted with genuine human warmth: featuring the iconic handwritten Sinhala script `ශිල්ප` branding, real student hero banner with the angled ribbon *"Fully functional Learning Site on your finger tips"*, institutional partner credentials (DP Education, University of Moratuwa, YouTube), and four authentic storytelling cards.
 
 ![Landing Page](screenshots/01-landing-page.png)
 
 > **Key Capabilities:**
-> - **Interactive Product Mockup Window**: Integrated macOS-style interface displaying real-time test suite health (`152/152 Passing`), syntax-highlighted PHP 8.2 controllers, and curriculum navigation.
-> - **Live Platform Metrics**: Real-time counters tracking 60+ accredited courses, 78+ active scholars, 100% verified uptime, and sub-25ms database latency.
-> - **Curated Excellence**: Featured course grid with vector SVG cover artwork, star ratings, difficulty badges, and instructor credentials.
+> - **Authentic Human Branding**: Preserves the original handwritten Sinhala script `ශිල්ප` identity and bilingual education focus (*"Language is not a barrier at Shilpa! English or සිංහල"*).
+> - **Storytelling Value Cards**: Four narrative milestones illustrating open access, zero tuition fees, bilingual accessibility, and instant registration.
+> - **Institutional Heritage**: Real educational partnerships (DP Education, University of Moratuwa Open Learning Platform, YouTube) and NSBM Green University context.
+> - **Dynamic Course Integration**: Live database query binding rendering latest offerings and top-rated curriculum directly into authentic course cards.
 
 ---
 
-### 2. Faceted Course Catalog & Real-Time Discovery
-An intelligent discovery cockpit featuring domain category chips, real-time keyword search, sorting presets (Featured Top Courses / All Courses), and responsive vector-illustrated course cards.
+### 2. All Courses in Shilpa — Faceted Catalog & Discovery
+A clean, friendly catalog experience featuring the authentic *"All Courses in Shilpa!"* banner with original `kiddo.png` artwork, fast search, discipline filter chips, and distinct physical course cards with instructor attribution (*"Done By: ..."*).
 
 ![Course Catalog](screenshots/02-course-catalog.png)
 
 > **Key Capabilities:**
-> - **Multi-Discipline Category Filtering**: Filter instantaneously across Software Engineering, AI & Data Systems, Cloud & DevOps, Cybersecurity, and Distributed Systems.
-> - **Vector Artwork Banners**: Clean, crisp SVG course illustrations that render flawlessly without external network latency.
-> - **Accredited Badges & Details**: Instant visual indicators for Top Rated Courses, estimated duration, and faculty leads.
+> - **Authentic Banner & Typography**: Distinctive `#205154` banner featuring the original `kiddo.png` mascot artwork and high-contrast typography.
+> - **Multi-Discipline Filtering**: Instant filtering across Software Engineering, AI & Data Systems, Cloud & DevOps, and Cybersecurity.
+> - **Physical Course Card Aesthetic**: Clean `#F5F5F5` cards with hover accents, cover thumbnails, descriptions, and explicit instructor credits (*"Done By: Prof. Kanchana Bandara"*).
+> - **Top Course Badges**: Distinct red top-course badges highlighting verified masterclasses.
 
 ---
 
 ### 3. Interactive Course Learning Workspace & Content Theater
-A distraction-free, structured learner workspace uniting hierarchical curriculum modules, multimedia lesson playback, lecture duration badges, and instant resume capabilities.
+A structured, distraction-free learner workspace uniting hierarchical curriculum modules, multimedia lesson playback, lecture duration badges, and instant resume capabilities.
 
 ![Course Learning Workspace](screenshots/03-course-workspace.png)
 
@@ -74,7 +76,7 @@ An individualized student dashboard providing immediate oversight over active se
 ![Student Dashboard](screenshots/04-student-dashboard.png)
 
 > **Key Capabilities:**
-> - **Metric Overview Cards**: Four high-contrast metric tiles tracking enrolled courses, overall completion, weekly study hours (+3.2 hrs above peer average), and First Class GPA standing (3.86/4.0).
+> - **Metric Overview Cards**: High-contrast metric tiles tracking enrolled courses, overall completion, weekly study hours, and academic standing.
 > - **Active Course Progress**: Quick-resume cards with instructor details and live completion indicators.
 > - **Context-Aware AI Tutor Widget**: Proactive recommendations suggesting hands-on labs and practice quiz preparation.
 
@@ -87,18 +89,18 @@ A centralized superadmin operations command center providing real-time system he
 
 > **Key Capabilities:**
 > - **Cryptographic Audit Integrity**: Sequential HMAC-SHA256 audit chaining verifying zero database record tampering.
-> - **Enrollment Growth Trajectory**: Interactive SVG analytics chart displaying month-over-month student admissions (+42% QoQ growth).
-> - **System Diagnostics**: Live monitoring of PHP runtime (8.2.0), PDO database connection pools, memory footprint (2 MB), and service health.
+> - **Enrollment Growth Trajectory**: Interactive analytics chart displaying month-over-month student admissions.
+> - **System Diagnostics**: Live monitoring of PHP runtime (8.2+), PDO database connection pools, memory footprint, and service health.
 
 ---
 
 ### 6. Unified Enterprise Design System & Component Library
-A standardized, accessible token-driven design system featuring accessible color scales, custom form controls, alerts, modals, badges, and responsive layouts.
+A standardized, accessible design system featuring clean light-mode default, accessible color scales, custom form controls, alerts, modals, badges, and responsive layouts.
 
 ![Design System](screenshots/06-design-system.png)
 
 > **Key Capabilities:**
-> - **Semantic Token Palette**: Dark-mode default (`--bg-canvas: #070b14`, `--bg-surface: #0e1526`) with accessible WCAG 2.1 AA contrast ratios.
+> - **Clean Light Mode Default**: Inviting, professional white canvas (`#ffffff`, `#f8fafc`) with accessible WCAG 2.1 AA contrast ratios and optional dark mode toggle.
 > - **Interactive Component Matrix**: Standardized primary, secondary, outline, ghost, and danger button variations across small, medium, and hero sizes.
 > - **Accessible Modals & Overlays**: Keyboard-navigable dialogs with focus trapping and backdrop dismissal.
 
@@ -110,6 +112,7 @@ A brute-force protected authentication portal featuring dual-factor TOTP verific
 ![Authentication & Security](screenshots/07-auth-login.png)
 
 > **Key Capabilities:**
+> - **Authentic Brand Integration**: Showcases the handwritten Sinhala `ශිල්ප` logo on a warm academic backdrop.
 > - **Leaky-Bucket Rate Limiting**: Automatic lockout defense preventing automated password-spraying and credential stuffing.
 > - **Two-Factor Authentication (2FA)**: RFC 6238 compliant TOTP verification with emergency recovery scratch codes.
 > - **Secure Session Protection**: Strict `SameSite=Lax`, `HttpOnly`, and session ID regeneration upon privilege transition.

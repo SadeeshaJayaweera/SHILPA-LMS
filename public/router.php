@@ -44,6 +44,10 @@ if ($uri !== '/') {
 
     if ($target !== null) {
         $ext = strtolower(pathinfo($target, PATHINFO_EXTENSION));
+        if ($ext === 'php' && $target !== __DIR__ . '/index.php') {
+            require $target;
+            return true;
+        }
         $mimes = [
             'css'   => 'text/css',
             'js'    => 'application/javascript',

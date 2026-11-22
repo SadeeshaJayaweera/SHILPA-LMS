@@ -6,11 +6,11 @@
   'use strict';
 
   // 1. Theme Initializer & Switcher
-  const savedTheme = localStorage.getItem('shilpa-theme') || 'dark';
+  const savedTheme = localStorage.getItem('shilpa-theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
   window.toggleTheme = function () {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('shilpa-theme', newTheme);
@@ -18,7 +18,7 @@
   };
 
   function updateThemeToggleIcons() {
-    const isDark = (document.documentElement.getAttribute('data-theme') || 'dark') === 'dark';
+    const isDark = (document.documentElement.getAttribute('data-theme') || 'light') === 'dark';
     document.querySelectorAll('[data-theme-icon]').forEach(el => {
       el.textContent = isDark ? '🌙' : '☀️';
     });

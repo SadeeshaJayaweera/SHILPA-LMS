@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,8 +34,7 @@
     <header class="site-header" role="banner">
         <div class="nav-container">
             <a href="/" class="brand-link" aria-label="SHILPA LMS Home">
-                <span class="brand-avatar">S</span>
-                <span>SHILPA <span style="color: var(--primary-text); font-weight: 500;">LMS</span></span>
+                <img src="/Images/index/shilpaLogo.png" alt="SHILPA LMS" style="height: 38px; width: auto; object-fit: contain;">
             </a>
 
             <nav class="nav-menu" role="navigation" aria-label="Main Navigation">

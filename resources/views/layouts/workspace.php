@@ -29,8 +29,7 @@ $navSections = NavigationService::getNavigationForUser();
     <aside class="workspace-sidebar" role="navigation" aria-label="Sidebar Navigation">
         <div class="sidebar-header">
             <a href="/workspace" class="sidebar-brand" aria-label="SHILPA LMS Workspace">
-                <span class="sidebar-brand-avatar">S</span>
-                <span class="sidebar-brand-text">SHILPA <span style="color: var(--primary-text); font-weight: 500;">LMS</span></span>
+                <img src="/Images/index/shilpaLogo.png" alt="SHILPA LMS" style="height: 36px; width: auto; object-fit: contain;">
             </a>
             <button type="button" class="sidebar-toggle-btn" id="sidebar-toggle-btn" aria-label="Toggle sidebar collapse" aria-expanded="true">
                 <?= component('icon', ['name' => 'sidebar', 'size' => 18]) ?>

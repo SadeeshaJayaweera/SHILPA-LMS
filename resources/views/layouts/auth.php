@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +16,20 @@
         }
         .auth-brand-pane {
             flex: 1.1;
-            background: radial-gradient(circle at 20% 30%, rgba(2, 132, 199, 0.25) 0%, rgba(6, 9, 17, 0.98) 70%);
+            background: linear-gradient(135deg, rgba(32, 81, 84, 0.92) 0%, rgba(15, 23, 42, 0.94) 100%), url('/login/register_background.jpg') center/cover no-repeat;
             border-right: 1px solid var(--border-subtle);
             padding: 4rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            color: #ffffff;
+        }
+        .auth-brand-pane h2 {
+            color: #ffffff;
+        }
+        .auth-brand-pane p {
+            color: #e2e8f0;
         }
         .auth-form-pane {
             flex: 1;
@@ -57,9 +64,8 @@
         <!-- Left Brand Pane -->
         <div class="auth-brand-pane">
             <div>
-                <a href="/" style="display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text-primary); font-family: var(--font-heading); font-weight: 800; font-size: 1.35rem;">
-                    <span style="width: 2.5rem; height: 2.5rem; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--shilpa-blue-400) 0%, var(--shilpa-blue-600) 100%); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800;">S</span>
-                    <span>SHILPA <span style="color: var(--primary-text); font-weight: 500;">LMS</span></span>
+                <a href="/" style="display: inline-flex; align-items: center; text-decoration: none;">
+                    <img src="/Images/index/shilpaLogo.png" alt="SHILPA LMS" style="height: 48px; width: auto; object-fit: contain;">
                 </a>
             </div>
 
