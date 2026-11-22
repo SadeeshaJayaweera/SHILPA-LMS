@@ -1,12 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// Built-in PHP CLI development server router
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/');
-
-if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
-    return false;
-}
 
 // Development preview session helper
 if (isset($_GET['preview_as'])) {
@@ -32,6 +27,43 @@ if (isset($_GET['preview_as'])) {
         $_SESSION['user_name'] = 'Ashani Fernando';
         $_SESSION['user_role'] = 'student';
         $_SESSION['_last_activity'] = time();
+    }
+}
+
+// Directly serve static assets from public/ or root
+if ($uri !== '/') {
+    $publicFile = __DIR__ . $uri;
+    $rootFile = dirname(__DIR__) . $uri;
+    $target = null;
+
+    if (file_exists($publicFile) && !is_dir($publicFile)) {
+        $target = $publicFile;
+    } elseif (file_exists($rootFile) && !is_dir($rootFile)) {
+        $target = $rootFile;
+    }
+
+    if ($target !== null) {
+        $ext = strtolower(pathinfo($target, PATHINFO_EXTENSION));
+        $mimes = [
+            'css'   => 'text/css',
+            'js'    => 'application/javascript',
+            'png'   => 'image/png',
+            'jpg'   => 'image/jpeg',
+            'jpeg'  => 'image/jpeg',
+            'svg'   => 'image/svg+xml',
+            'webp'  => 'image/webp',
+            'gif'   => 'image/gif',
+            'ico'   => 'image/x-icon',
+            'woff'  => 'font/woff',
+            'woff2' => 'font/woff2',
+            'ttf'   => 'font/ttf',
+            'otf'   => 'font/otf',
+        ];
+        if (isset($mimes[$ext])) {
+            header('Content-Type: ' . $mimes[$ext]);
+        }
+        readfile($target);
+        return true;
     }
 }
 

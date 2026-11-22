@@ -6,8 +6,7 @@
   'use strict';
 
   // 1. Theme Initializer & Switcher
-  const savedTheme = localStorage.getItem('shilpa-theme') || 
-    (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  const savedTheme = localStorage.getItem('shilpa-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
   window.toggleTheme = function () {

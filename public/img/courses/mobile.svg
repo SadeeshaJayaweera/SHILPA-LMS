@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#4338ca"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg6)"/>
+  <g transform="translate(100, 75)">
+    <rect width="600" height="300" rx="16" fill="#181438" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <circle cx="28" cy="24" r="6" fill="#ef4444"/>
+    <circle cx="48" cy="24" r="6" fill="#f59e0b"/>
+    <circle cx="68" cy="24" r="6" fill="#10b981"/>
+    <text x="100" y="28" fill="#c7d2fe" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">CourseAppView.swift — Swift &amp; Kotlin Architecture</text>
+    <line x1="0" y1="46" x2="600" y2="46" stroke="rgba(255,255,255,0.08)"/>
+    <g transform="translate(230, 60)">
+      <!-- Phone mockup frame -->
+      <rect x="0" y="0" width="140" height="210" rx="18" fill="#0b0821" stroke="#818cf8" stroke-width="2"/>
+      <rect x="45" y="8" width="50" height="6" rx="3" fill="#818cf8"/>
+      <!-- App cards -->
+      <rect x="15" y="30" width="110" height="35" rx="6" fill="#312e81"/>
+      <rect x="25" y="42" width="50" height="6" rx="2" fill="#a5b4fc"/>
+      <rect x="15" y="75" width="110" height="50" rx="6" fill="#3730a3"/>
+      <circle cx="35" cy="100" r="10" fill="#6366f1"/>
+      <rect x="55" y="95" width="55" height="8" rx="2" fill="#e0e7ff"/>
+      <rect x="15" y="135" width="110" height="40" rx="6" fill="#312e81"/>
+      <rect x="25" y="147" width="70" height="6" rx="2" fill="#818cf8"/>
+    </g>
+  </g>
+</svg>

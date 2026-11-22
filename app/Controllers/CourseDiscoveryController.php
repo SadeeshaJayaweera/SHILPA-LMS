@@ -27,7 +27,7 @@ class CourseDiscoveryController extends Controller {
         if ($sort === 'top') {
             $builder->where('TOP_COURSE', 'Yes')->orWhere('TOP_COURSE', 'yes');
         } else {
-            $builder->orderBy('C_ADD_DATE', 'DESC');
+            $builder->orderBy('TOP_COURSE', 'DESC')->orderBy('C_ID', 'ASC');
         }
 
         $courses = array_map(fn($row) => new Course($row), $builder->get());

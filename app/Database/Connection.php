@@ -48,9 +48,11 @@ class Connection {
             self::$instances[$name] = $pdo;
             return $pdo;
         } catch (PDOException $e) {
-            // In CLI / test environments, fallback to in-memory SQLite if MySQL is unavailable
-            if ($driver === 'mysql' && (defined('SHILPA_TEST_MODE') || php_sapi_name() === 'cli')) {
-                $fallbackPdo = new PDO('sqlite::memory:', null, null, [
+            // In CLI / test / local dev server environments, fallback to SQLite if MySQL is unavailable
+            if ($driver === 'mysql' && (defined('SHILPA_TEST_MODE') || php_sapi_name() === 'cli' || php_sapi_name() === 'cli-server')) {
+                $dbFile = dirname(__DIR__, 2) . '/storage/database.sqlite';
+                $dsn = file_exists($dbFile) ? "sqlite:$dbFile" : 'sqlite::memory:';
+                $fallbackPdo = new PDO($dsn, null, null, [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 ]);

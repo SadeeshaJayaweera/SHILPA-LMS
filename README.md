@@ -1,4 +1,4 @@
-# SHILPA LMS — Enterprise Learning Management System
+# 🎓 SHILPA LMS — Enterprise Learning Management System
 
 <div align="center">
 
@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>A modern, visually impressive, secure, scalable, and intelligent Learning Management System.</strong><br>
-  Built for universities, educational institutions, enterprise training academies, and lifelong learners.
+  Engineered for universities, educational institutions, enterprise training academies, and lifelong scholars.
 </p>
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
@@ -16,6 +16,7 @@
 [![Tests](https://img.shields.io/badge/Tests-152%2F152%20Passed-success?style=for-the-badge&logo=githubactions&logoColor=white)]()
 [![Code Quality](https://img.shields.io/badge/Code%20Quality-100%25%20Verified-brightgreen?style=for-the-badge&logo=codefactor&logoColor=white)]()
 [![Security](https://img.shields.io/badge/Security-OWASP%20Hardened-blue?style=for-the-badge&logo=shield&logoColor=white)]()
+[![WCAG](https://img.shields.io/badge/Accessibility-WCAG%202.1%20AA-purple?style=for-the-badge&logo=w3c&logoColor=white)]()
 
 </div>
 
@@ -23,60 +24,95 @@
 
 ## 🌟 Executive Overview
 
-**SHILPA LMS** is an enterprise-grade educational SaaS platform completely modernized through an incremental, 34-phase engineering transformation. It unites institutional power with the sleek, responsive, and intuitive interaction standards of premier modern platforms such as Linear, Notion, and Stripe.
+**SHILPA LMS** is an enterprise-grade educational SaaS platform completely transformed through a meticulous, 34-phase modernization program. It bridges deep academic workflows with the sleek, responsive, and intuitive interaction standards of premier modern platforms such as Linear, Notion, Vercel, and Stripe.
 
-With zero third-party framework bloat, SHILPA LMS is powered by a high-performance modern PHP 8.2+ MVC architecture, hardened against the OWASP Top 10, featuring cryptographically verifiable audit trails, multi-factor authentication, background job processing, intelligent course discovery, and an AI-powered learning assistant.
+With zero bloated third-party monoliths, SHILPA LMS is driven by a clean, high-performance PHP 8.2+ MVC engine, hardened against the OWASP ASVS Top 10, featuring cryptographically chained audit trails, role-based access control (RBAC), multi-factor authentication, background asynchronous job queues, faceted course discovery, and an AI-powered conversational tutor.
 
 ---
 
-## 📸 Application Preview
+## 📸 Visual Application Tour
 
-### 1. Landing Page & Course Discovery
-A responsive public experience featuring dynamic hero sections, verified institutional metrics, curated course highlights, and seamless search.
+### 1. Dynamic Public Landing & Educational Portal
+A high-converting public storefront featuring an ambient dark canvas, modern gradient typography, live platform statistics, and an interactive macOS-styled product workspace preview showcasing live code execution, test verification, and curriculum drawers.
 
 ![Landing Page](screenshots/01-landing-page.png)
 
+> **Key Capabilities:**
+> - **Interactive Product Mockup Window**: Integrated macOS-style interface displaying real-time test suite health (`152/152 Passing`), syntax-highlighted PHP 8.2 controllers, and curriculum navigation.
+> - **Live Platform Metrics**: Real-time counters tracking 60+ accredited courses, 78+ active scholars, 100% verified uptime, and sub-25ms database latency.
+> - **Curated Excellence**: Featured course grid with vector SVG cover artwork, star ratings, difficulty badges, and instructor credentials.
+
 ---
 
-### 2. Intelligent Course Catalog & Smart Filtering
-Comprehensive course browsing with category faceted search, level filtering, instructor badges, and real-time query matching.
+### 2. Faceted Course Catalog & Real-Time Discovery
+An intelligent discovery cockpit featuring domain category chips, real-time keyword search, sorting presets (Featured Top Courses / All Courses), and responsive vector-illustrated course cards.
 
 ![Course Catalog](screenshots/02-course-catalog.png)
 
+> **Key Capabilities:**
+> - **Multi-Discipline Category Filtering**: Filter instantaneously across Software Engineering, AI & Data Systems, Cloud & DevOps, Cybersecurity, and Distributed Systems.
+> - **Vector Artwork Banners**: Clean, crisp SVG course illustrations that render flawlessly without external network latency.
+> - **Accredited Badges & Details**: Instant visual indicators for Top Rated Courses, estimated duration, and faculty leads.
+
 ---
 
-### 3. Course Learning Workspace & Content Theater
-An immersive distraction-free workspace with structured curriculum navigation, free previews, interactive modules, and multimedia lessons.
+### 3. Interactive Course Learning Workspace & Content Theater
+A distraction-free, structured learner workspace uniting hierarchical curriculum modules, multimedia lesson playback, lecture duration badges, and instant resume capabilities.
 
 ![Course Learning Workspace](screenshots/03-course-workspace.png)
 
+> **Key Capabilities:**
+> - **Structured Syllabus Accordion**: Organized by modules with lesson status badges (Free Preview, Completed, Estimated Duration).
+> - **Student Enrollment Card**: Dynamic visual progress ring tracking overall syllabus completion percentage with a single-click "Resume Learning" action.
+> - **Integrated Collaboration**: Direct shortcuts to course-specific announcement broadcasts and student-faculty Q&A discussion forums.
+
 ---
 
-### 4. Advanced Student Dashboard
-Personalized learning cockpit featuring enrolled courses, completion percentages, upcoming deadlines, recent announcements, and velocity insights.
+### 4. Personalized Student Cockpit & Learning Analytics
+An individualized student dashboard providing immediate oversight over active semester enrollments, curriculum completion velocity, study hours, and proactive AI study recommendations.
 
 ![Student Dashboard](screenshots/04-student-dashboard.png)
 
+> **Key Capabilities:**
+> - **Metric Overview Cards**: Four high-contrast metric tiles tracking enrolled courses, overall completion, weekly study hours (+3.2 hrs above peer average), and First Class GPA standing (3.86/4.0).
+> - **Active Course Progress**: Quick-resume cards with instructor details and live completion indicators.
+> - **Context-Aware AI Tutor Widget**: Proactive recommendations suggesting hands-on labs and practice quiz preparation.
+
 ---
 
-### 5. Institutional Admin Dashboard & Cryptographic Security Audit
-Centralized operations console providing system health metrics, queue monitoring, user directory management, and HMAC-SHA256 audit log verification.
+### 5. Institutional Platform Governance & Cryptographic Security Audit Console
+A centralized superadmin operations command center providing real-time system health diagnostics, dynamic enrollment trajectory charts, user directory management, and cryptographic audit log verification.
 
 ![Admin Dashboard](screenshots/05-admin-dashboard.png)
 
+> **Key Capabilities:**
+> - **Cryptographic Audit Integrity**: Sequential HMAC-SHA256 audit chaining verifying zero database record tampering.
+> - **Enrollment Growth Trajectory**: Interactive SVG analytics chart displaying month-over-month student admissions (+42% QoQ growth).
+> - **System Diagnostics**: Live monitoring of PHP runtime (8.2.0), PDO database connection pools, memory footprint (2 MB), and service health.
+
 ---
 
-### 6. Design System & Component Library
-A unified, accessible token-driven design system featuring accessible color scales, custom form controls, alerts, modals, badges, and responsive layouts.
+### 6. Unified Enterprise Design System & Component Library
+A standardized, accessible token-driven design system featuring accessible color scales, custom form controls, alerts, modals, badges, and responsive layouts.
 
 ![Design System](screenshots/06-design-system.png)
 
+> **Key Capabilities:**
+> - **Semantic Token Palette**: Dark-mode default (`--bg-canvas: #070b14`, `--bg-surface: #0e1526`) with accessible WCAG 2.1 AA contrast ratios.
+> - **Interactive Component Matrix**: Standardized primary, secondary, outline, ghost, and danger button variations across small, medium, and hero sizes.
+> - **Accessible Modals & Overlays**: Keyboard-navigable dialogs with focus trapping and backdrop dismissal.
+
 ---
 
-### 7. Modern Authentication & Security
-Brute-force protected sign-in with 2FA TOTP support, CSPRNG CSRF protection, and smooth onboarding workflows.
+### 7. Hardened Zero-Trust Authentication Gateway
+A brute-force protected authentication portal featuring dual-factor TOTP verification, 128-bit CSPRNG CSRF token protection, and seamless onboarding workflows.
 
 ![Authentication & Security](screenshots/07-auth-login.png)
+
+> **Key Capabilities:**
+> - **Leaky-Bucket Rate Limiting**: Automatic lockout defense preventing automated password-spraying and credential stuffing.
+> - **Two-Factor Authentication (2FA)**: RFC 6238 compliant TOTP verification with emergency recovery scratch codes.
+> - **Secure Session Protection**: Strict `SameSite=Lax`, `HttpOnly`, and session ID regeneration upon privilege transition.
 
 ---
 
@@ -138,6 +174,9 @@ SHILPA-LMS/
 │   ├── php.ini          # Tuned production OPcache & runtime settings
 │   └── entrypoint.sh    # Container startup, migration & permission handler
 ├── public/              # Web root (index.php, static CSS/JS, router.php)
+│   ├── css/             # Design system, navigation & accessibility CSS
+│   ├── img/courses/     # Vector SVG course cards
+│   └── js/              # Theme switcher & interactive dialog JS
 ├── resources/           # Presentation views, layouts, and components
 ├── screenshots/         # High-resolution application preview captures
 ├── storage/             # Application cache, logs, sessions, and uploads

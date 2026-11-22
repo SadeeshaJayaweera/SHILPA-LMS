@@ -41,11 +41,15 @@ $navSections = NavigationService::getNavigationForUser();
         </div>
 
         <div class="sidebar-content">
-            <?php foreach ($navSections as $sectionTitle => $items): ?>
+            <?php 
+            $currentPath = function_exists('request') ? request()->path() : (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
+            foreach ($navSections as $sectionTitle => $items): ?>
                 <div class="sidebar-section">
                     <div class="sidebar-section-title"><?= e($sectionTitle) ?></div>
-                    <?php foreach ($items as $item): ?>
-                        <a href="<?= e($item['url']) ?>" class="nav-item-link">
+                    <?php foreach ($items as $item): 
+                        $isActive = ($item['url'] === $currentPath) || ($item['url'] !== '/' && $item['url'] !== '/workspace' && str_starts_with($currentPath, $item['url']));
+                    ?>
+                        <a href="<?= e($item['url']) ?>" class="nav-item-link <?= $isActive ? 'active' : '' ?>">
                             <span class="nav-item-icon">
                                 <?= component('icon', ['name' => $item['icon'], 'size' => 18]) ?>
                             </span>

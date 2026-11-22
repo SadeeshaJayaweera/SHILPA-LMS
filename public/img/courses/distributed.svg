@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#180d04"/>
+      <stop offset="50%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg5)"/>
+  <g transform="translate(100, 75)">
+    <rect width="600" height="300" rx="16" fill="#1b0f05" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <circle cx="28" cy="24" r="6" fill="#ef4444"/>
+    <circle cx="48" cy="24" r="6" fill="#f59e0b"/>
+    <circle cx="68" cy="24" r="6" fill="#10b981"/>
+    <text x="100" y="28" fill="#fde68a" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">EventBus.ts — High-Concurrency Distributed Microservices</text>
+    <line x1="0" y1="46" x2="600" y2="46" stroke="rgba(255,255,255,0.08)"/>
+    <g transform="translate(60, 80)">
+      <rect x="20" y="40" width="120" height="70" rx="8" fill="#78350f" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="35" y="70" fill="#fbbf24" font-family="monospace" font-size="13" font-weight="700">Kafka Broker</text>
+      <text x="35" y="92" fill="#fde68a" font-family="monospace" font-size="11">50k msgs/sec</text>
+      <rect x="190" y="40" width="120" height="70" rx="8" fill="#78350f" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="205" y="70" fill="#fbbf24" font-family="monospace" font-size="13" font-weight="700">Redis Cache</text>
+      <text x="205" y="92" fill="#fde68a" font-family="monospace" font-size="11">Sub-1ms P99</text>
+      <rect x="360" y="40" width="120" height="70" rx="8" fill="#78350f" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="375" y="70" fill="#fbbf24" font-family="monospace" font-size="13" font-weight="700">Worker Pool</text>
+      <text x="375" y="92" fill="#fde68a" font-family="monospace" font-size="11">Auto-Scaling</text>
+      <line x1="140" y1="75" x2="190" y2="75" stroke="#fbbf24" stroke-width="2"/>
+      <line x1="310" y1="75" x2="360" y2="75" stroke="#fbbf24" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
